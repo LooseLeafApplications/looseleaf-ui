@@ -171,8 +171,7 @@ This design system rejects the fragile practice of hardcoding absolute pixel val
 
 Drafting the exact definitions for our first structural layout primitives, ensuring our documentation explicitly details _why_ a pattern exists rather than just listing its styles. It must demonstrate that every element exists to solve a specific structural problem, completely isolated from any parent environment.
 
-<details>  
-<summary><b>🔍 Case Study: Let’s look at the Stack (<l-stack>)</b></summary>
+#### 🔍 Case Study: Let’s look at the Stack (l-stack)
 
 In standard utility frameworks such as Bootstrap, vertical spacing is often managed by adding top or bottom margins directly to individual components (e.g. `mb-3`). This breaks isolation because the component now carries assumptions about what sits next to it.
 
@@ -214,13 +213,9 @@ l-stack > * + * {
 }
 ```
 
-</details>
-
 <p align="right">(<a href="#top">Back to top</a>)</p>
 
-<details>
-
-<summary><b>🔍 Case Study: Let’s look at the Cluster (<l-cluster>)</b></summary>
+#### 🔍 Case Study: Let’s look at the Cluster (l-cluster)
 
 **Case Study: Let’s look at the Cluster (`<l-cluster>`)**
 
@@ -254,9 +249,7 @@ l-cluster {
 }
 ```
 
-</details>
-
-<summary><b>🔍 Case Study: Let’s look at the Sidebar (`<l-sidebar>`)</b></summary>
+#### 🔍 Case Study: Let’s look at the Sidebar (l-sidebar)
 
 The "Sidebar" layout isn't just for page navigation; it solves the ubiquitous "fixed element next to a fluid element" problem (e.g., an avatar next to a comment, or an icon next to an input).
 
@@ -297,9 +290,7 @@ l-sidebar > :last-child {
 }
 ```
 
-</details>
-
-<summary><b>🔍 Case Study: Let’s look at the Grid (`<l-grid>`)</b></summary>
+#### 🔍 Case Study: Let’s look at the Grid (l-grid)
 
 While traditional frameworks use 12-column extrinsic grids requiring classes like `.col-md-4` and `.col-sm-12`, our Grid is an intrinsic primitive that calculates its own column count based on available space.
 
@@ -330,9 +321,7 @@ l-grid {
 }
 ```
 
-</details>
-
-<summary><b>🔍 Case Study: Let’s look at the Reel (`<l-reel>`)</b></summary>
+#### 🔍 Case Study: Let’s look at the Reel (l-reel)
 
 When space is at a premium (especially on mobile), stacking elements vertically can create an endlessly long scroll. The Reel solves this by providing a robust, native horizontal scrolling experience without heavy JavaScript carousels.
 
@@ -369,9 +358,7 @@ l-reel > * {
 }
 ```
 
-</details>
-
-<summary><b>🔍 Case Study: Let’s look at the Switcher (`<l-switcher>`)</b></summary>
+#### 🔍 Case Study: Let’s look at the Switcher (l-switcher)
 
 When a horizontal row of items wraps naturally, it often creates awkward intermediate states (e.g., three items on the top row, one lonely item on the bottom row) before finally stacking on mobile screens.
 
@@ -403,8 +390,6 @@ l-switcher > * {
   flex-basis: calc((var(--threshold, 40rem) - 100%) * 999);
 }
 ```
-
-</details>
 
 ### 🎨 Design Tokens (The Visual Layer)
 
