@@ -332,6 +332,182 @@ Unified form classes that strip away browser defaults and rebuild the UI using o
 
 Macro-compositions are complex UI patterns built by nesting Tier 3 Atoms inside Tier 2 Layout Primitives. Tier 4 components rarely declare their own layout CSS. They act purely as decorative shells (handling backgrounds, borders, and padding), delegating all structural flow to the primitives inside them.
 
+### The Global Header (`.c-site-header`)
+
+**1. Conceptual Purpose**
+
+- **Problem:** Site headers require complex spacing: (conventionally) aligning a logo to the left, navigation to the right, and handling spacing evenly. Developers often write fragile, page-specific flexbox rules for this.
+- **Pattern Solution:** The Header is simply a native `<header>` element, utilising a modified Cluster to push the brand and navigation apart.
+- **Contextual Rule:** The Header is purely decorative (background, borders, padding). It delegates all horizontal alignment to the `<l-cluster>`.
+
+**2. Implementation Logic (HTML & CSS)**
+
+```html
+<header class="c-site-header">
+  <l-cluster style="justify-content: space-between;">
+    <a href="/" class="c-brand">LooseLeaf</a>
+
+    <nav aria-label="Primary Navigation">
+      <l-cluster>
+        <a href="/docs">Docs</a>
+        <a href="/pricing">Pricing</a>
+        <button class="c-button" data-loudness="cheer">Log In</button>
+      </l-cluster>
+    </nav>
+  </l-cluster>
+</header>
+```
+
+```css
+/* Zero layout rules! Just aesthetics. */
+.c-site-header {
+  padding: var(--s1) var(--s2);
+  background-color: var(--color-surface-base);
+  border-bottom: 1px solid var(--color-border-subtle);
+  /* Ensure it sits on top if we ever make it sticky */
+  position: relative;
+  z-index: 10;
+}
+
+.c-brand {
+  font-weight: 700;
+  font-size: var(--s1);
+  text-decoration: none;
+  color: var(--color-text-base);
+}
+```
+
+### The Global Footer (`.c-site-footer`)
+
+**1. Conceptual Purpose**
+
+- **Problem:** Footers often contain multiple columns of links that need to collapse gracefully on mobile screens, alongside a signup link and copyright text.
+- **Pattern Solution:** We compose a Stack for the overarching vertical sections, and a Grid for the columns of links. The intrinsic grid handles the mobile wrapping automatically without a single media query.
+
+  2.**Implementation Logic (HTML & CSS)**
+
+```html
+<footer class="c-site-footer">
+  <l-stack style="--space: var(--s3);">
+    <l-grid style="--grid-min: 10rem;">
+      <l-stack style="--space: var(--s-1);">
+        <h3 class="c-footer-heading">Product</h3>
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+      </l-stack>
+
+      <l-stack style="--space: var(--s-1);">
+        <h3 class="c-footer-heading">Company</h3>
+        <a href="#">About Us</a>
+        <a href="#">Careers</a>
+      </l-stack>
+
+      <l-stack style="--space: var(--s-1);">
+        <h3 class="c-footer-heading">Legal</h3>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </l-stack>
+    </l-grid>
+
+    <div class="c-site-footer__bottom">
+      <l-cluster style="justify-content: space-between;">
+        <p>&copy; 2026 LooseLeaf UI. All rights reserved.</p>
+        <l-cluster>
+          <a href="#">Twitter</a>
+          <a href="#">GitHub</a>
+        </l-cluster>
+      </l-cluster>
+    </div>
+  </l-stack>
+</footer>
+```
+
+```css
+.c-site-footer {
+  padding: var(--s4) var(--s2) var(--s2);
+  background-color: var(--color-surface-sunken);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.c-footer-heading {
+  font-size: var(--s0);
+  font-weight: 600;
+  color: var(--color-text-base);
+}
+
+.c-site-footer a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.c-site-footer a:hover {
+  color: var(--color-action-primary);
+}
+
+.c-site-footer__bottom {
+  padding-top: var(--s2);
+  border-top: 1px solid var(--color-border-subtle);
+  font-size: var(--s-1);
+  color: var(--color-text-muted);
+}
+```
+
+### The Split Hero Banner (`.c-hero`)
+
+**1. Conceptual Purpose**
+**Problem:** The top of almost every landing page features a "Hero" section with text on the left and an image on the right. Doing this cleanly so it stacks on mobile is traditionally tedious.
+**Pattern Solution:** The Hero is a perfect use case for our Switcher or Sidebar primitive. We will use the Switcher to ensure it breaks from a side-by-side layout into a stacked layout exactly when it gets too cramped.
+
+**2. Implementation Logic (HTML & CSS)**
+
+```html
+<section class="c-hero">
+  <l-switcher style="--threshold: 45rem; align-items: center;">
+    <l-stack style="--space: var(--s1);">
+      <h1 class="c-hero__title">Build interfaces faster than ever.</h1>
+      <p class="c-hero__lead">
+        A composable layout system that respects typography and eliminates
+        manual overrides.
+      </p>
+      <l-cluster>
+        <button class="c-button" data-loudness="cheer">Get Started</button>
+        <button class="c-button" data-loudness="murmur">Read Docs</button>
+      </l-cluster>
+    </l-stack>
+
+    <div class="c-hero__media">
+      <img src="hero-graphic.svg" alt="Abstract interface illustration" />
+    </div>
+  </l-switcher>
+</section>
+```
+
+```css
+.c-hero {
+  padding: var(--s4) var(--s2);
+  background-color: var(--color-surface-base);
+}
+
+.c-hero__title {
+  /* Using clamp for massive, fluid hero text */
+  font-size: clamp(var(--s2), 5vw, var(--s4));
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.c-hero__lead {
+  font-size: var(--s1);
+  color: var(--color-text-muted);
+  max-inline-size: 45ch; /* Slightly shorter measure for punchy copy */
+}
+
+.c-hero__media img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+```
+
 ### The Card (`.c-card`)
 
 **1. Conceptual Purpose**
@@ -391,11 +567,11 @@ Macro-compositions are complex UI patterns built by nesting Tier 3 Atoms inside 
 **1. Conceptual Purpose**
 
 - **Problem:** Creating accessible modals requires massive JavaScript overhead to handle focus trapping, backdrop clicking, and z-index wars.
-- **Pattern Solution:** We utilise the native HTML5 <dialog> element, styling it with our tokens and letting the browser handle accessibility and positioning natively.
+- **Pattern Solution:** We utilise the native HTML5 `<dialog>` element, styling it with our tokens and letting the browser handle accessibility and positioning natively.
 
 **2. Logical Behaviour Map**
 
-- **Top Layer:** The <dialog> element natively sits in the browser's top layer, bypassing z-index issues entirely.
+- **Top Layer:** The `<dialog>` element natively sits in the browser's top layer, bypassing z-index issues entirely.
 - **Intrinsic Centering:** The browser automatically centers the dialog. We only need to restrict its maximum width (max-inline-size: 60ch).
 
 **3. Implementation Logic (CSS & HTML)**
@@ -438,6 +614,175 @@ Macro-compositions are complex UI patterns built by nesting Tier 3 Atoms inside 
     </l-cluster>
   </l-stack>
 </dialog>
+```
+
+### The Structured Form (`.c-form`)
+
+**1. Conceptual Purpose**
+**Problem:** Complex forms (like user profiles or checkout flows) often become a tangled mess of custom margin-bottom classes and grid overrides to keep labels, inputs, and buttons aligned.
+**Pattern Solution:** The Structured Form composes our Tier 3 Atoms (.c-label, .c-input, .c-button) inside our Tier 2 Layout Primitives `(<l-stack>` for vertical rhythm, `<l-cluster>` for action rows, and `<l-grid>` for multi-column field rows).
+
+**2. Logical Behaviour Map**
+**The Vertical Rhythm:** A master `<l-stack>` governs the space between distinct form sections (fieldsets).
+**The Intrinsic Columns:** An `<l-grid>` is used when two inputs (like "First Name" and "Last Name") need to sit side-by-side but intrinsically wrap to a stack on mobile.
+**Action Alignment:** An `<l-cluster>` groups the submit and cancel buttons, naturally pushing them to the start or end of the form.
+
+**3. Implementation Logic (HTML & CSS)**
+
+```HTML
+<form class="c-form">
+  <l-stack style="--space: var(--s3);">
+
+    <fieldset class="c-form__section">
+      <legend class="c-form__legend">Personal Details</legend>
+      <l-stack style="--space: var(--s1);">
+
+        <l-grid style="--grid-min: 15rem;">
+          <div>
+            <label class="c-label" for="fname">First Name</label>
+            <input type="text" id="fname" class="c-input">
+          </div>
+          <div>
+            <label class="c-label" for="lname">Last Name</label>
+            <input type="text" id="lname" class="c-input">
+          </div>
+        </l-grid>
+
+      </l-stack>
+    </fieldset>
+
+    <l-cluster style="justify-content: flex-end;">
+      <button type="button" class="c-button" data-loudness="murmur">Cancel</button>
+      <button type="submit" class="c-button" data-loudness="cheer">Save Profile</button>
+    </l-cluster>
+
+  </l-stack>
+</form>
+```
+
+```css
+/* The CSS purely handles the decorative borders and typography of the fieldset */
+.c-form__section {
+  border: none;
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: var(--s2);
+}
+
+.c-form__legend {
+  font-weight: 700;
+  font-size: var(--s1);
+  color: var(--color-text-base);
+  padding-bottom: var(--s1);
+}
+```
+
+### The Article/Prose (`.c-prose`)
+
+**1. Conceptual Purpose**
+**Problem:** When rendering long-form content (like a blog post or terms of service generated from a CMS or Markdown file), we cannot manually wrap every single `<p>` or `<h2>` in an `<l-stack>`.
+**Pattern Solution:** The Prose component acts as a specialised wrapper. It strictly enforces our 60ch Measure Axiom and uses the lobotomised owl selector internally to inject vertical rhythm into raw, unclassed HTML.
+
+**2. Logical Behaviour Map**
+**Measure Enforcement:** Guarantees no line of text exceeds optimal reading width.
+**Typographic Scale:** Scales up the font sizes of headings relative to the body text.
+**Algorithmic Spacing:** Injects our harmonic spacing (--s1, --s2) between paragraphs, lists, and headings automatically.
+
+**3. Implementation Logic (HTML & CSS)**
+
+```html
+<article class="c-prose">
+  <h1>The Architecture of UI</h1>
+  <p>
+    This is the introductory paragraph. It will not exceed 60 characters in
+    width, making it perfectly readable.
+  </p>
+  <h2>The Second Movement</h2>
+  <p>
+    Notice how the spacing above this heading is slightly larger than the
+    spacing between paragraphs. The CSS handles this intrinsically.
+  </p>
+</article>
+```
+
+```css
+.c-prose {
+  /* Enforce the measure axiom */
+  max-inline-size: var(--measure, 60ch);
+  /* Center the article within its parent if the parent is wider */
+  margin-inline: auto;
+}
+
+/* Establish vertical rhythm for raw HTML elements */
+.c-prose > * + * {
+  margin-block-start: var(--s1);
+}
+
+/* Give headings a little extra breathing room from the text above them */
+.c-prose > * + h2,
+.c-prose > * + h3 {
+  margin-block-start: var(--s3);
+}
+
+/* Scale standard headings */
+.c-prose h1 {
+  font-size: var(--s3);
+  line-height: 1.1;
+}
+.c-prose h2 {
+  font-size: var(--s2);
+  line-height: 1.2;
+}
+```
+
+### The Media Object (`.c-media-object`)
+
+**1. Conceptual Purpose**
+**Problem:** The "Media Object" (an image to the left, descriptive text to the right) is one of the oldest patterns in web design, used for user comments, author bios, and list items. Developers typically write custom floating or flex CSS every time they build one.
+**Pattern Solution:** This is the perfect use case for our `<l-sidebar>` primitive. We compose the avatar inside the "fixed" side, and the text inside the "fluid" side.
+
+**2. Logical Behaviour Map**
+**The Anchor:** The image (avatar/icon) has a fixed minimum width.
+**The Fluid Text:** The text area takes up the remaining space.
+**The Wrap:** Because it uses the Sidebar, if the screen gets too small to support the side-by-side layout, the avatar will pop to the top and the text will stack below it automatically.
+
+**3. Implementation Logic (HTML & CSS)**
+
+```html
+<div class="c-media-object">
+  <l-sidebar style="--side-width: 4rem; --space: var(--s1);">
+    <img src="avatar.jpg" alt="User Avatar" class="c-media-object__avatar" />
+
+    <div class="c-media-object__content">
+      <l-stack style="--space: var(--s-2);">
+        <header>
+          <strong>Ada Lovelace</strong>
+          <span class="u-text-muted">@adalovelace</span>
+        </header>
+        <p>
+          This is a comment or a brief bio. It flows perfectly next to the
+          avatar and will stack naturally on microscopic screens.
+        </p>
+      </l-stack>
+    </div>
+  </l-sidebar>
+</div>
+```
+
+```css
+.c-media-object {
+  padding: var(--s1);
+  background-color: var(--color-surface-base);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+}
+
+.c-media-object__avatar {
+  width: 100%; /* Fills the 4rem assigned by the l-sidebar */
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
 ```
 
 ---
