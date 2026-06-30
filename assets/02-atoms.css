@@ -1,6 +1,79 @@
 /* The Button */
+.c-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: inherit;
+  font-size: var(--s0);
+  font-weight: 600;
+  text-decoration: none;
+
+  padding: var(--s-1) var(--s1);
+  border-radius: 4px;
+  border: 1px solid transparent;
+
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Variant: Cheer (Primary) */
+.c-button[data-loudness="cheer"] {
+  background-color: var(--color-action-primary);
+  color: var(--color-surface-base);
+}
+.c-button[data-loudness="cheer"]:hover,
+.c-button[data-loudness="cheer"]:focus {
+  filter: brightness(0.9);
+}
+
+/* Variant: Murmur (Secondary) */
+.c-button[data-loudness="murmur"] {
+  background-color: transparent;
+  border-color: var(--color-border-subtle);
+  color: var(--color-text-base);
+}
+.c-button[data-loudness="murmur"]:hover,
+.c-button[data-loudness="murmur"]:focus {
+  background-color: var(--color-surface-sunken);
+}
 
 /* Form Inputs */
+.c-label {
+  display: block;
+  font-weight: 600;
+  font-size: var(--s-1);
+  color: var(--color-text-base);
+  margin-block-end: var(--s-2);
+}
+
+.c-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: var(--s0);
+  color: var(--color-text-base);
+
+  background-color: var(--color-surface-base);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 4px;
+
+  padding: var(--s-1) var(--s0);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.c-input:focus {
+  outline: none;
+  border-color: var(--color-action-primary);
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.2);
+}
+
+.c-input:disabled {
+  background-color: var(--color-surface-sunken);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
 
 /* The Badge */
 .c-badge {

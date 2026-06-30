@@ -17,6 +17,18 @@ body {
   font-family: system-ui, sans-serif;
   line-height: 1.5;
   color: var(--color-text-base);
+  overflow-wrap: break-word;
+}
+
+/* Prevent media elements from blowing out flex/grid containers */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-inline-size: 100%;
+  height: auto;
 }
 
 /* 3. Typographic Measure with Inverted Control */
