@@ -547,3 +547,9 @@ button.c-list-group__item:focus {
   color: var(--color-surface-base);
   border-color: var(--color-action-primary);
 }
+
+/* --- [T4-16] The Standard Section --- */
+.c-section {
+  padding-block: var(--s4); /* Large vertical breathing room (top and bottom) */
+  padding-inline: var(--s2); /* Standard horizontal edge spacing */
+}

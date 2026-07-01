@@ -54,73 +54,79 @@
           </l-switcher>
         </section>
 
-        <section
-          style="
-            padding-inline: var(--s2);
-            max-inline-size: 800px;
-            margin-inline: auto;
-          "
-        >
-          <l-stack style="--space: var(--s2)">
-            <h2>Create your account</h2>
-            <p class="u-text-muted">
-              Experience the power of intrinsic design.
-            </p>
+        <section class="c-section">
+          <l-center style="--max-width: 45rem">
+            <l-stack style="--space: var(--s2)">
+              <div>
+                <h2>Create your account</h2>
+                <p class="u-text-muted">
+                  Experience the power of intrinsic design.
+                </p>
+              </div>
 
-            <form class="c-form">
-              <l-stack style="--space: var(--s3)">
-                <fieldset class="c-form__section">
-                  <legend class="c-form__legend">Personal Details</legend>
-                  <l-stack style="--space: var(--s1)">
-                    <l-grid style="--grid-min: 15rem">
+              <form class="c-form">
+                <l-stack style="--space: var(--s3)">
+                  <fieldset class="c-form__section">
+                    <legend class="c-form__legend">Personal Details</legend>
+                    <l-stack style="--space: var(--s1)">
+                      <l-grid style="--grid-min: 15rem">
+                        <div>
+                          <label class="c-label" for="fname">First Name</label>
+                          <input
+                            type="text"
+                            id="fname"
+                            class="c-input"
+                            placeholder="Ada"
+                          />
+                        </div>
+                        <div>
+                          <label class="c-label" for="lname">Last Name</label>
+                          <input
+                            type="text"
+                            id="lname"
+                            class="c-input"
+                            placeholder="Lovelace"
+                          />
+                        </div>
+                      </l-grid>
+
                       <div>
-                        <label class="c-label" for="fname">First Name</label>
+                        <label class="c-label" for="email">Email Address</label>
                         <input
-                          type="text"
-                          id="fname"
+                          type="email"
+                          id="email"
                           class="c-input"
-                          placeholder="Ada"
+                          placeholder="ada@example.com"
                         />
                       </div>
-                      <div>
-                        <label class="c-label" for="lname">Last Name</label>
-                        <input
-                          type="text"
-                          id="lname"
-                          class="c-input"
-                          placeholder="Lovelace"
-                        />
-                      </div>
-                    </l-grid>
+                    </l-stack>
+                  </fieldset>
 
-                    <div>
-                      <label class="c-label" for="email">Email Address</label>
-                      <input
-                        type="email"
-                        id="email"
-                        class="c-input"
-                        placeholder="ada@example.com"
-                      />
-                    </div>
-                  </l-stack>
-                </fieldset>
-
-                <l-cluster style="justify-content: flex-end">
-                  <button type="button" class="c-button" data-loudness="murmur">
-                    Cancel
-                  </button>
-                  <button type="submit" class="c-button" data-loudness="cheer">
-                    Complete Setup
-                  </button>
-                </l-cluster>
-              </l-stack>
-            </form>
-          </l-stack>
+                  <l-cluster style="justify-content: flex-end">
+                    <button
+                      type="button"
+                      class="c-button"
+                      data-loudness="murmur"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      class="c-button"
+                      data-loudness="cheer"
+                    >
+                      Complete Setup
+                    </button>
+                  </l-cluster>
+                </l-stack>
+              </form>
+            </l-stack>
+          </l-center>
         </section>
       </l-stack>
     </main>
 
-    <footer class="c-site-footer" style="margin-top: var(--s5)">
+    <footer class="c-site-footer">
       <l-stack style="--space: var(--s3)">
         <l-grid style="--grid-min: 10rem">
           <l-stack style="--space: var(--s-1)">

@@ -260,6 +260,20 @@ l-switcher > * {
 }
 ```
 
+### The Center (`l-center`)
+
+A structural wrapper that restricts the maximum width of its content and horizontally centers it within the viewport. It intrinsically maintains a minimum padding on the edges so content never touches the sides of mobile screens.
+
+```css
+l-center {
+  box-sizing: content-box; /* Ensures padding doesn't subtract from max-width */
+  display: block;
+  max-inline-size: var(--max-width, var(--measure));
+  margin-inline: auto;
+  padding-inline: var(--space, var(--s2));
+}
+```
+
 ---
 
 ## 5. <a name="tier-3"></a> ✨ Tier 3: Functional Atoms
