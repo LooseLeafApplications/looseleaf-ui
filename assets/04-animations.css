@@ -1,0 +1,37 @@
+/* ==========================================================================
+   TIER 5: ANIMATIONS & PHYSICS
+   ========================================================================== */
+
+/* --- [T5-01] Spring Physics Variables --- */
+:root {
+  --spring-snappy: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --spring-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --spring-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 400ms;
+}
+
+/* --- [T5-02] The Lift & Scale --- */
+.u-anim-lift {
+  transition:
+    transform var(--dur-base) var(--spring-snappy),
+    box-shadow var(--dur-base) var(--spring-snappy);
+  will-change: transform;
+}
+.u-anim-lift:hover {
+  transform: translateY(calc(var(--s-2) * -1)) scale(1.02);
+}
+
+/* --- [T5-03] Global Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

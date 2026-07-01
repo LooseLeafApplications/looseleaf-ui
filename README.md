@@ -268,131 +268,236 @@ Atoms are the smallest indivisible functional patterns. They handle their own in
 
 ### The Button (`.c-button`)
 
-A single, robust class handling interactive behaviours, modified by "Visual Loudness" data attributes (`cheer`, `murmur`, `ghost`) for varying degrees of emphasis.
+**1. Architectural Overview**
+A universal interactive trigger used for submitting forms, confirming actions, or linking to primary routes.
+
+- **Primitives Used:** None (Atom).
+- **JS Required:** **No**.
+- **Dark Mode Implications:** Relies strictly on semantic colour tokens (`--color-action-primary`, `--color-surface-base`) to invert automatically.
+
+**2. Accessibility (a11y) Advisories**
+
+- If used as a link, use an `<a>` tag with the `.c-button` class. If triggering an on-page action, use a `<button>` tag.
+- Ensure focus states (`:focus`, `:focus-visible`) are clearly defined for keyboard navigation.
+
+**3. Variables Available**
+
+- Inherits fluid typography directly from `--s0`.
+
+**4. Implementation (HTML Structure)**
 
 ```html
-<!-- Primary Action -->
 <button class="c-button" data-loudness="cheer" type="submit">
-  Save Changes
+  Primary Action
 </button>
-
-<!-- Secondary Action -->
-<a href="/" class="c-button" data-loudness="murmur">Cancel</a>
+<a href="/" class="c-button" data-loudness="murmur">Secondary Link</a>
 ```
+
+**5. CSS Requirement**
+_(See `02-atoms.css` for full implementation of visual loudness variants)._
 
 ### Form Inputs (`.c-input`, `.c-label`)
 
-Unified form classes that strip away browser defaults and rebuild the UI using our fluid scale. Setting `font-size: var(--s0)` explicitly mitigates the jarring auto-zoom behaviour in iOS Safari.
+**1. Architectural Overview**
+Unified data-entry fields that strip away inconsistent browser defaults and rebuild the UI using our fluid scale.
+
+- **Primitives Used:** None intrinsically, but must be composed within an `<l-stack>` for vertical rhythm.
+- **JS Required:** **No** (unless adding custom validation).
+- **Dark Mode Implications:** Input backgrounds map to `--color-surface-base` and borders to `--color-border-subtle`.
+
+**2. Accessibility (a11y) Advisories**
+
+- Every `.c-input` **must** have a corresponding `.c-label`.
+- The `for` attribute on the label must explicitly match the `id` of the input.
+- Setting `font-size: var(--s0)` (which defaults to minimum 16px) is critical to prevent the jarring auto-zoom behaviour in iOS Safari.
+
+**3. Variables Available**
+
+- Inherits structural spacing from `--s-1` and `--s-2`.
+
+**4. Implementation (HTML Structure)**
 
 ```html
-<l-stack style="--space: var(--s1);">
-  <div>
-    <label class="c-label" for="email">Email Address</label>
-    <input type="email" id="email" class="c-input" required />
-  </div>
-</l-stack>
+<div>
+  <label class="c-label" for="email">Email Address</label>
+  <input type="email" id="email" class="c-input" required />
+</div>
 ```
 
 ### The Badge (`.c-badge`)
 
-**1. Conceptual Purpose**
+**1. Architectural Overview**
+A compact, inline-flex status indicator designed to sit naturally alongside text in a paragraph or heading.
 
-- **Problem:** Status indicators (like "New", "Error", or item counts) often suffer from inconsistent vertical alignment when placed next to text, or rely on hardcoded pixel dimensions that break when the user scales their font size.
-- **Pattern Solution:** A compact, inline-flex element that perfectly centers its text and relies on our modular scale for proportional, fluid padding.
-- **Contextual Rule:** Badges are non-interactive read-only atoms. If a badge needs to be clicked, it should be marked up as a button or link with a specific variant.
+- **Primitives Used:** None (Atom).
+- **JS Required:** **No**.
+- **Dark Mode Implications:** Semantic tints (e.g., `data-status="danger"`) must use accessible contrast ratios for both light and dark backgrounds.
 
-**2. Logical Behaviour Map**
+**2. Accessibility (a11y) Advisories**
 
-- **Inline Alignment:** Uses `inline-flex` to sit naturally alongside text in a paragraph or heading.
-- **Semantic Tints:** Relies on data attributes (`data-status="success" | "danger"`) to inherit specific semantic colour tokens.
+- Badges are non-interactive read-only atoms. Do not use them as clickable tags.
+- If color is the _only_ indicator of status (e.g., a red badge for "Error"), ensure hidden text or an icon accompanies it for screen readers.
 
-**3. Implementation Logic (CSS)**
+**3. Variables Available**
 
-```css
-.c-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+- Automatically calculates proportional padding based on `0.85em` of the parent's font size.
 
-  /* Inherit the parent font size, but scale it down one step */
-  font-size: 0.85em;
-  font-weight: 600;
-  line-height: 1;
+**4. Implementation (HTML Structure)**
 
-  /* Proportional padding based on the text size */
-  padding: 0.25em 0.65em;
-  border-radius: 999px; /* Pill shape */
+```html
+<h2>Notifications <span class="c-badge" data-status="danger">3 New</span></h2>
+```
 
-  background-color: var(--color-surface-sunken);
-  color: var(--color-text-base);
-}
+### The Accordion (`.c-accordion`)
 
-/* Status Variants */
-.c-badge[data-status="danger"] {
-  background-color: #fee2e2; /* Example: map to semantic token */
-  color: #991b1b;
-}
+**1. Architectural Overview**
+An interactive vertical list of headers that reveal or hide associated content to preserve vertical screen real estate.
+
+- **Primitives Used:** `<l-stack>` (for the vertical rhythm of the items).
+- **JS Required:** **Yes**. Hook: `data-ll-accordion`.
+- **Dark Mode Implications:** Active states shift background to `--color-surface-sunken`.
+
+**2. Accessibility (a11y) Advisories**
+
+- The clickable header must be a `<button>` (not a div).
+- The button requires `aria-expanded="false"` (or `true`) and `aria-controls="content-id"`.
+
+**3. Variables Available**
+
+- `--accordion-radius`: (Default: `8px`)
+- `--accordion-icon-transition`: (Default: `transform var(--dur-base) var(--spring-snappy)`)
+
+**4. Implementation (HTML Structure)**
+
+```html
+<div class="c-accordion" data-ll-accordion>
+  <l-stack style="--space: 0;">
+    <div class="c-accordion__item">
+      <button
+        class="c-accordion__trigger"
+        aria-expanded="false"
+        aria-controls="panel-1"
+      >
+        <span>Section Title</span>
+        <svg class="c-accordion__icon" aria-hidden="true" viewBox="0 0 24 24">
+          ...
+        </svg>
+      </button>
+      <div class="c-accordion__panel" id="panel-1">
+        <div class="c-accordion__content">
+          <p>Content goes here.</p>
+        </div>
+      </div>
+    </div>
+  </l-stack>
+</div>
+```
+
+### The Dropdown (`.c-dropdown`)
+
+**1. Architectural Overview**
+A contextual overlay for displaying lists of links or actions, triggered by a user interaction.
+
+- **Primitives Used:** `<l-stack>` (to vertically space the items inside the menu).
+- **JS Required:** **Yes**. Hook: `data-ll-toggle="dropdown"`.
+- **Animations:** Utilises spring physics (`.u-anim-lift`) and opacity transitions.
+
+**2. Accessibility (a11y) Advisories**
+
+- The trigger must have `aria-haspopup="true"` and `aria-expanded="false"`.
+- The menu must be dismissible via the `Escape` key or clicking outside the wrapper.
+
+**3. Variables Available**
+
+- `--dropdown-width`: (Default: `12rem`)
+- `--dropdown-offset`: (Default: `0.5rem`)
+
+**4. Implementation (HTML Structure)**
+
+```html
+<div class="c-dropdown-wrapper">
+  <button
+    class="c-button u-anim-lift"
+    data-ll-toggle="dropdown"
+    aria-expanded="false"
+    aria-haspopup="true"
+  >
+    Actions
+  </button>
+  <div class="c-dropdown" role="menu">
+    <l-stack style="--space: var(--s-2);">
+      <a href="#" class="c-dropdown__item" role="menuitem">Account Settings</a>
+    </l-stack>
+  </div>
+</div>
 ```
 
 ---
 
 ## 6. <a name="tier-4"></a> 🏗️ Tier 4: Macro-Compositions (Organisms)
 
-Macro-compositions are complex UI patterns built by nesting Tier 3 Atoms inside Tier 2 Layout Primitives. Tier 4 components rarely declare their own layout CSS. They act purely as decorative shells (handling backgrounds, borders, and padding), delegating all structural flow to the primitives inside them.
+Macro-compositions are complex UI patterns built by nesting Tier 3 Atoms inside Tier 2 Layout Primitives. Tier 4 components rarely declare their own layout CSS. They act purely as decorative shells, delegating structural flow to the primitives inside them.
 
-### The Global Header (`.c-site-header`)
+### The Navbar (`.c-navbar`)
 
-**1. Conceptual Purpose**
+**1. Architectural Overview**
+A responsive, top-level navigation header that groups branding, navigational links, and actions. It collapses its menu behind a toggle button when horizontal space is depleted.
 
-- **Problem:** Site headers require complex spacing: (conventionally) aligning a logo to the left, navigation to the right, and handling spacing evenly. Developers often write fragile, page-specific flexbox rules for this.
-- **Pattern Solution:** The Header is simply a native `<header>` element, utilising a modified Cluster to push the brand and navigation apart.
-- **Contextual Rule:** The Header is purely decorative (background, borders, padding). It delegates all horizontal alignment to the `<l-cluster>`.
+- **Primitives Used:** `<l-cluster>` (to push the brand and menu apart).
+- **JS Required:** **Yes**. Hook: `data-ll-toggle="collapse"`.
+- **Dark Mode Implications:** Sits on `--color-surface-base` with a bottom border of `--color-border-subtle`.
 
-**2. Implementation Logic (HTML & CSS)**
+**2. Accessibility (a11y) Advisories**
+
+- The wrapper must be a `<nav>` tag with a clear `aria-label` (e.g., "Primary Navigation").
+- The mobile toggle (hamburger) must have `aria-controls="menu-id"` and `aria-label="Toggle navigation"`.
+
+**3. Variables Available**
+
+- `--navbar-threshold`: (Default: `45rem`).
+- `--navbar-padding`: (Default: `var(--s1) var(--s2)`).
+
+**4. Implementation (HTML Structure)**
 
 ```html
-<header class="c-site-header">
+<nav class="c-navbar" aria-label="Primary Navigation">
   <l-cluster style="justify-content: space-between;">
-    <a href="/" class="c-brand">LooseLeaf</a>
-
-    <nav aria-label="Primary Navigation">
+    <a href="/" class="c-navbar__brand">LooseLeaf</a>
+    <button
+      class="c-navbar__toggle u-anim-lift"
+      data-ll-toggle="collapse"
+      aria-expanded="false"
+      aria-controls="primary-menu"
+      aria-label="Toggle navigation"
+    ></button>
+    <div class="c-navbar__menu" id="primary-menu">
       <l-cluster>
-        <a href="/docs">Docs</a>
-        <a href="/pricing">Pricing</a>
-        <button class="c-button" data-loudness="cheer">Log In</button>
+        <a href="/features" class="c-navbar__link">Features</a>
+        <button class="c-button" data-loudness="cheer">Get Started</button>
       </l-cluster>
-    </nav>
+    </div>
   </l-cluster>
-</header>
-```
-
-```css
-/* Zero layout rules! Just aesthetics. */
-.c-site-header {
-  padding: var(--s1) var(--s2);
-  background-color: var(--color-surface-base);
-  border-bottom: 1px solid var(--color-border-subtle);
-  /* Ensure it sits on top if we ever make it sticky */
-  position: relative;
-  z-index: 10;
-}
-
-.c-brand {
-  font-weight: 700;
-  font-size: var(--s1);
-  text-decoration: none;
-  color: var(--color-text-base);
-}
+</nav>
 ```
 
 ### The Global Footer (`.c-site-footer`)
 
-**1. Conceptual Purpose**
+**1. Architectural Overview**
+A page-terminating structure containing multiple columns of secondary links, legal information, and social connectivity.
 
-- **Problem:** Footers often contain multiple columns of links that need to collapse gracefully on mobile screens, alongside a signup link and copyright text.
-- **Pattern Solution:** We compose a Stack for the overarching vertical sections, and a Grid for the columns of links. The intrinsic grid handles the mobile wrapping automatically without a single media query.
+- **Primitives Used:** `<l-stack>` (vertical sections), `<l-grid>` (columns of links).
+- **JS Required:** **No**.
+- **Dark Mode Implications:** Typically placed on a darker or sunken background (`--color-surface-sunken`).
 
-  2.**Implementation Logic (HTML & CSS)**
+**2. Accessibility (a11y) Advisories**
+
+- Consider wrapping in a `<footer>` tag or using `role="contentinfo"`.
+
+**3. Variables Available**
+
+- Inherits fluid spacing directly from Tier 1 (`--s3`, `--s4`).
+
+**4. Implementation (HTML Structure)**
 
 ```html
 <footer class="c-site-footer">
@@ -401,224 +506,111 @@ Macro-compositions are complex UI patterns built by nesting Tier 3 Atoms inside 
       <l-stack style="--space: var(--s-1);">
         <h3 class="c-footer-heading">Product</h3>
         <a href="#">Features</a>
-        <a href="#">Pricing</a>
-      </l-stack>
-
-      <l-stack style="--space: var(--s-1);">
-        <h3 class="c-footer-heading">Company</h3>
-        <a href="#">About Us</a>
-        <a href="#">Careers</a>
-      </l-stack>
-
-      <l-stack style="--space: var(--s-1);">
-        <h3 class="c-footer-heading">Legal</h3>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
       </l-stack>
     </l-grid>
-
     <div class="c-site-footer__bottom">
-      <l-cluster style="justify-content: space-between;">
-        <p>&copy; 2026 LooseLeaf UI. All rights reserved.</p>
-        <l-cluster>
-          <a href="#">Twitter</a>
-          <a href="#">GitHub</a>
-        </l-cluster>
-      </l-cluster>
+      <p>&copy; 2026 LooseLeaf UI.</p>
     </div>
   </l-stack>
 </footer>
 ```
 
-```css
-.c-site-footer {
-  padding: var(--s4) var(--s2) var(--s2);
-  background-color: var(--color-surface-sunken);
-  border-top: 1px solid var(--color-border-subtle);
-}
-
-.c-footer-heading {
-  font-size: var(--s0);
-  font-weight: 600;
-  color: var(--color-text-base);
-}
-
-.c-site-footer a {
-  color: var(--color-text-muted);
-  text-decoration: none;
-}
-
-.c-site-footer a:hover {
-  color: var(--color-action-primary);
-}
-
-.c-site-footer__bottom {
-  padding-top: var(--s2);
-  border-top: 1px solid var(--color-border-subtle);
-  font-size: var(--s-1);
-  color: var(--color-text-muted);
-}
-```
-
 ### The Split Hero Banner (`.c-hero`)
 
-**1. Conceptual Purpose**
-**Problem:** The top of almost every landing page features a "Hero" section with text on the left and an image on the right. Doing this cleanly so it stacks on mobile is traditionally tedious.
-**Pattern Solution:** The Hero is a perfect use case for our Switcher or Sidebar primitive. We will use the Switcher to ensure it breaks from a side-by-side layout into a stacked layout exactly when it gets too cramped.
+**1. Architectural Overview**
+A primary landing page feature presenting copy on one side and supporting media on the other.
 
-**2. Implementation Logic (HTML & CSS)**
+- **Primitives Used:** `<l-switcher>` (snaps from side-by-side to stacked gracefully).
+- **JS Required:** **No**.
+
+**2. Accessibility (a11y) Advisories**
+
+- Ensure the heading hierarchy is respected (usually begins with an `<h1>`).
+- The supporting media must have descriptive `alt` text if conveying meaning, or `alt=""` if purely decorative.
+
+**3. Variables Available**
+
+- Relies on the Switcher's `--threshold` variable (Default: `45rem`).
+
+**4. Implementation (HTML Structure)**
 
 ```html
 <section class="c-hero">
   <l-switcher style="--threshold: 45rem; align-items: center;">
     <l-stack style="--space: var(--s1);">
-      <h1 class="c-hero__title">Build interfaces faster than ever.</h1>
-      <p class="c-hero__lead">
-        A composable layout system that respects typography and eliminates
-        manual overrides.
-      </p>
-      <l-cluster>
-        <button class="c-button" data-loudness="cheer">Get Started</button>
-        <button class="c-button" data-loudness="murmur">Read Docs</button>
-      </l-cluster>
+      <h1 class="c-hero__title">Build interfaces faster.</h1>
+      <p class="c-hero__lead">A composable layout system.</p>
     </l-stack>
-
     <div class="c-hero__media">
-      <img src="hero-graphic.svg" alt="Abstract interface illustration" />
+      <img src="hero.svg" alt="Interface illustration" />
     </div>
   </l-switcher>
 </section>
 ```
 
-```css
-.c-hero {
-  padding: var(--s4) var(--s2);
-  background-color: var(--color-surface-base);
-}
-
-.c-hero__title {
-  /* Using clamp for massive, fluid hero text */
-  font-size: clamp(var(--s2), 5vw, var(--s4));
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
-
-.c-hero__lead {
-  font-size: var(--s1);
-  color: var(--color-text-muted);
-  max-inline-size: 45ch; /* Slightly shorter measure for punchy copy */
-}
-
-.c-hero__media img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-```
-
 ### The Card (`.c-card`)
 
-**1. Conceptual Purpose**
+**1. Architectural Overview**
+A decorative container used to group related concepts, products, or actions.
 
-- **Problem:** Developers frequently hardcode internal margins into Card components (.card-title { margin-bottom: 1rem; }), making it impossible to add or remove elements without breaking the design.
-- **Pattern Solution:** The Card is simply a decorative container. It relies entirely on a nested `<l-stack>` primitive to manage the vertical rhythm of the content inside it.
+- **Primitives Used:** `<l-stack>` (manages all internal vertical rhythm).
+- **JS Required:** **No**.
+- **Dark Mode Implications:** Borders must use `--color-border-subtle` to remain visible when backgrounds adapt.
 
-**2. Logical Behaviour Map**
+**2. Accessibility (a11y) Advisories**
 
-- **The Decorative Shell:** The `.c-card` class applies the border, background, and internal padding.
-- **The Structural Core:** An `<l-stack>` manages the spacing between the image, title, text, and buttons.
+- If the entire card is a link, avoid wrapping block-level elements (`<h3>`, `<p>`) in an `<a>` tag if older browser support is required; consider a pseudo-element overlay on the title link.
 
-**3. HTML Composition**
+**3. Variables Available**
+
+- None (Relies entirely on standard padding tokens).
+
+**4. Implementation (HTML Structure)**
 
 ```html
 <article class="c-card">
   <l-stack style="--space: var(--s1);">
-    <img src="thumbnail.jpg" alt="Description" class="c-card__media" />
-
+    <img src="thumbnail.jpg" alt="" class="c-card__media" />
     <l-stack style="--space: var(--s-2);">
       <h3>Card Title</h3>
-      <p>
-        This is the descriptive text. Notice how we don't need any margin
-        classes.
-      </p>
+      <p>Descriptive text without margin classes.</p>
     </l-stack>
-
-    <l-cluster>
-      <button class="c-button" data-loudness="cheer">Accept</button>
-      <button class="c-button" data-loudness="murmur">Decline</button>
-    </l-cluster>
   </l-stack>
 </article>
 ```
 
-**4. The CSS Requirement**
-
-```css
-.c-card {
-  background-color: var(--color-surface-base);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: 8px;
-  padding: var(--s1);
-  overflow: hidden;
-}
-/* Media resets for cards */
-.c-card__media {
-  max-inline-size: 100%;
-  display: block;
-  /* Pull the image flush to the card edges by negating padding */
-  margin: calc(var(--s1) * -1) calc(var(--s1) * -1) 0;
-}
-```
-
 ### The Native Modal (`.c-modal`)
 
-**1. Conceptual Purpose**
+**1. Architectural Overview**
+A high-priority disruption requiring user interaction before returning to the main application flow.
 
-- **Problem:** Creating accessible modals requires massive JavaScript overhead to handle focus trapping, backdrop clicking, and z-index wars.
-- **Pattern Solution:** We utilise the native HTML5 `<dialog>` element, styling it with our tokens and letting the browser handle accessibility and positioning natively.
+- **Primitives Used:** `<l-stack>` (for internal content spacing).
+- **JS Required:** **Yes** (to trigger `.showModal()` and `.close()` on the dialog element).
+- **Animations:** Can utilise Tier 5 physics for entry/exit.
 
-**2. Logical Behaviour Map**
+**2. Accessibility (a11y) Advisories**
 
-- **Top Layer:** The `<dialog>` element natively sits in the browser's top layer, bypassing z-index issues entirely.
-- **Intrinsic Centering:** The browser automatically centers the dialog. We only need to restrict its maximum width (max-inline-size: 60ch).
+- Utilises the HTML5 `<dialog>` element to natively handle focus trapping and top-layer rendering.
+- Must provide an explicit, keyboard-accessible close mechanism (e.g., an "X" button or "Cancel").
 
-**3. Implementation Logic (CSS & HTML)**
+**3. Variables Available**
 
-```css
-.c-modal {
-  padding: var(--s2);
-  border: none;
-  border-radius: 8px;
-  background-color: var(--color-surface-base);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+- Restricts max-width using `--measure` (60ch).
 
-  /* Restrict width using our measure axiom */
-  max-inline-size: var(--measure);
-  width: 90vw;
-}
-
-/* Style the native backdrop */
-.c-modal::backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-}
-```
+**4. Implementation (HTML Structure)**
 
 ```html
 <dialog class="c-modal" id="myModal">
   <l-stack>
     <h2>Confirm Action</h2>
-    <p>Are you sure you want to proceed? This cannot be undone.</p>
-
+    <p>Are you sure you want to proceed?</p>
     <l-cluster style="justify-content: flex-end;">
       <button
         class="c-button"
-        data-loudness="murmur"
-        onclick="window.myModal.close()"
+        onclick="document.getElementById('myModal').close()"
       >
         Cancel
       </button>
-      <button class="c-button" data-loudness="cheer">Confirm</button>
     </l-cluster>
   </l-stack>
 </dialog>
@@ -626,226 +618,93 @@ Macro-compositions are complex UI patterns built by nesting Tier 3 Atoms inside 
 
 ### The Structured Form (`.c-form`)
 
-**1. Conceptual Purpose**
-**Problem:** Complex forms (like user profiles or checkout flows) often become a tangled mess of custom margin-bottom classes and grid overrides to keep labels, inputs, and buttons aligned.
-**Pattern Solution:** The Structured Form composes our Tier 3 Atoms (.c-label, .c-input, .c-button) inside our Tier 2 Layout Primitives `(<l-stack>` for vertical rhythm, `<l-cluster>` for action rows, and `<l-grid>` for multi-column field rows).
+**1. Architectural Overview**
+A complex composition of input atoms aligned into fieldsets, rows, and action clusters.
 
-**2. Logical Behaviour Map**
-**The Vertical Rhythm:** A master `<l-stack>` governs the space between distinct form sections (fieldsets).
-**The Intrinsic Columns:** An `<l-grid>` is used when two inputs (like "First Name" and "Last Name") need to sit side-by-side but intrinsically wrap to a stack on mobile.
-**Action Alignment:** An `<l-cluster>` groups the submit and cancel buttons, naturally pushing them to the start or end of the form.
+- **Primitives Used:** `<l-stack>` (sections), `<l-grid>` (columns), `<l-cluster>` (actions).
+- **JS Required:** **No**.
 
-**3. Implementation Logic (HTML & CSS)**
+**2. Accessibility (a11y) Advisories**
 
-```HTML
+- Group related inputs (like shipping address) inside a `<fieldset>` with a descriptive `<legend>`.
+
+**3. Variables Available**
+
+- Grid column wrapping handled by `--grid-min: 15rem`.
+
+**4. Implementation (HTML Structure)**
+
+```html
 <form class="c-form">
   <l-stack style="--space: var(--s3);">
-
     <fieldset class="c-form__section">
-      <legend class="c-form__legend">Personal Details</legend>
+      <legend class="c-form__legend">Details</legend>
       <l-stack style="--space: var(--s1);">
-
-        <l-grid style="--grid-min: 15rem;">
-          <div>
-            <label class="c-label" for="fname">First Name</label>
-            <input type="text" id="fname" class="c-input">
-          </div>
-          <div>
-            <label class="c-label" for="lname">Last Name</label>
-            <input type="text" id="lname" class="c-input">
-          </div>
-        </l-grid>
-
+        <l-grid style="--grid-min: 15rem;"> </l-grid>
       </l-stack>
     </fieldset>
-
-    <l-cluster style="justify-content: flex-end;">
-      <button type="button" class="c-button" data-loudness="murmur">Cancel</button>
-      <button type="submit" class="c-button" data-loudness="cheer">Save Profile</button>
-    </l-cluster>
-
   </l-stack>
 </form>
 ```
 
-```css
-/* The CSS purely handles the decorative borders and typography of the fieldset */
-.c-form__section {
-  border: none;
-  border-top: 1px solid var(--color-border-subtle);
-  padding-top: var(--s2);
-}
+### The Article / Prose (`.c-prose`)
 
-.c-form__legend {
-  font-weight: 700;
-  font-size: var(--s1);
-  color: var(--color-text-base);
-  padding-bottom: var(--s1);
-}
-```
+**1. Architectural Overview**
+A specialised wrapper for rendering long-form content (CMS or Markdown output) by injecting vertical rhythm into raw, unclassed HTML.
 
-### The Article/Prose (`.c-prose`)
+- **Primitives Used:** Lobotomised Owl selector internally applied.
+- **JS Required:** **No**.
 
-**1. Conceptual Purpose**
-**Problem:** When rendering long-form content (like a blog post or terms of service generated from a CMS or Markdown file), we cannot manually wrap every single `<p>` or `<h2>` in an `<l-stack>`.
-**Pattern Solution:** The Prose component acts as a specialised wrapper. It strictly enforces our 60ch Measure Axiom and uses the lobotomised owl selector internally to inject vertical rhythm into raw, unclassed HTML.
+**2. Accessibility (a11y) Advisories**
 
-**2. Logical Behaviour Map**
-**Measure Enforcement:** Guarantees no line of text exceeds optimal reading width.
-**Typographic Scale:** Scales up the font sizes of headings relative to the body text.
-**Algorithmic Spacing:** Injects our harmonic spacing (--s1, --s2) between paragraphs, lists, and headings automatically.
+- Ensure logical heading structures (H1 -> H2 -> H3) are maintained in the raw HTML.
 
-**3. Implementation Logic (HTML & CSS)**
+**3. Variables Available**
+
+- Enforces the global `--measure` (60ch).
+
+**4. Implementation (HTML Structure)**
 
 ```html
 <article class="c-prose">
   <h1>The Architecture of UI</h1>
-  <p>
-    This is the introductory paragraph. It will not exceed 60 characters in
-    width, making it perfectly readable.
-  </p>
-  <h2>The Second Movement</h2>
-  <p>
-    Notice how the spacing above this heading is slightly larger than the
-    spacing between paragraphs. The CSS handles this intrinsically.
-  </p>
+  <p>Raw paragraph tag managed by the prose wrapper.</p>
+  <h2>Subheading</h2>
+  <p>Another paragraph spaced automatically.</p>
 </article>
-```
-
-```css
-.c-prose {
-  /* Enforce the measure axiom */
-  max-inline-size: var(--measure, 60ch);
-  /* Center the article within its parent if the parent is wider */
-  margin-inline: auto;
-}
-
-/* Establish vertical rhythm for raw HTML elements */
-.c-prose > * + * {
-  margin-block-start: var(--s1);
-}
-
-/* Give headings a little extra breathing room from the text above them */
-.c-prose > * + h2,
-.c-prose > * + h3 {
-  margin-block-start: var(--s3);
-}
-
-/* Scale standard headings */
-.c-prose h1 {
-  font-size: var(--s3);
-  line-height: 1.1;
-}
-.c-prose h2 {
-  font-size: var(--s2);
-  line-height: 1.2;
-}
 ```
 
 ### The Media Object (`.c-media-object`)
 
-**1. Conceptual Purpose**
-**Problem:** The "Media Object" (an image to the left, descriptive text to the right) is one of the oldest patterns in web design, used for user comments, author bios, and list items. Developers typically write custom floating or flex CSS every time they build one.
-**Pattern Solution:** This is the perfect use case for our `<l-sidebar>` primitive. We compose the avatar inside the "fixed" side, and the text inside the "fluid" side.
+**1. Architectural Overview**
+A fixed-width anchor (like an avatar) situated next to fluid, descriptive text.
 
-**2. Logical Behaviour Map**
-**The Anchor:** The image (avatar/icon) has a fixed minimum width.
-**The Fluid Text:** The text area takes up the remaining space.
-**The Wrap:** Because it uses the Sidebar, if the screen gets too small to support the side-by-side layout, the avatar will pop to the top and the text will stack below it automatically.
+- **Primitives Used:** `<l-sidebar>`.
+- **JS Required:** **No**.
 
-**3. Implementation Logic (HTML & CSS)**
+**2. Accessibility (a11y) Advisories**
+
+- If the image is purely decorative (e.g., an abstract icon), use `alt=""`.
+
+**3. Variables Available**
+
+- Configures the fixed anchor width via `--side-width: 4rem`.
+
+**4. Implementation (HTML Structure)**
 
 ```html
 <div class="c-media-object">
   <l-sidebar style="--side-width: 4rem; --space: var(--s1);">
     <img src="avatar.jpg" alt="User Avatar" class="c-media-object__avatar" />
-
     <div class="c-media-object__content">
       <l-stack style="--space: var(--s-2);">
-        <header>
-          <strong>Ada Lovelace</strong>
-          <span class="u-text-muted">@adalovelace</span>
-        </header>
-        <p>
-          This is a comment or a brief bio. It flows perfectly next to the
-          avatar and will stack naturally on microscopic screens.
-        </p>
+        <strong>Ada Lovelace</strong>
+        <p>A brief bio flowing perfectly next to the avatar.</p>
       </l-stack>
     </div>
   </l-sidebar>
 </div>
 ```
-
-```css
-.c-media-object {
-  padding: var(--s1);
-  background-color: var(--color-surface-base);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: 8px;
-}
-
-.c-media-object__avatar {
-  width: 100%; /* Fills the 4rem assigned by the l-sidebar */
-  height: auto;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  object-fit: cover;
-}
-```
-
----
-
-## 7. <a name="tier-4u"></a> 🔧 Tier 4: Utility Classes
-
-Utilities are single-purpose classes used for final, granular adjustments that cannot be handled by the Layout Primitives or Functional Atoms.
-
-### The Golden Rules of Utility Classes
-
-1. **The Last Resort:** Only use a utility class if no layout primitive or component class can achieve the desired result.
-2. **Naming Convention:** All utility classes are prefixed with `u-` to explicitly signal that they are overrides.
-3. **Restricted Scope:** Utilities should **never** define structural layout (margins, flex-behavior). They should only handle visual states (visibility, text-alignment).
-
-### The Permitted Utility Library
-
-We only permit the following utilities to keep the system lean and maintainable.
-
-| Class                | Purpose             | Logic                                                             |
-| :------------------- | :------------------ | :---------------------------------------------------------------- |
-| `.u-visually-hidden` | Accessible hiding   | Removes element from visual flow but keeps it for screen readers. |
-| `.u-text-center`     | Text alignment      | Forces text-align: center.                                        |
-| `.u-text-uppercase`  | Text transformation | Forces uppercase styling.                                         |
-| `.u-truncate`        | Overflow handling   | Adds ellipsis to overflowing text.                                |
-
-**Implementation Logic:**
-
-```css
-/* Accessible screen-reader-only utility */
-.u-visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
-
-.u-text-center {
-  text-align: center;
-}
-.u-text-uppercase {
-  text-transform: uppercase;
-}
-
-.u-truncate {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-```
-
----
 
 ## 8. <a name="qa"></a> 🧪 Quality Assurance & Browser Matrix
 

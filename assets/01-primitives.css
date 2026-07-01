@@ -1,4 +1,8 @@
-/* The Stack */
+/* ==========================================================================
+   TIER 2: LAYOUT PRIMITIVES
+   ========================================================================== */
+
+/* --- [T2-01] The Stack --- */
 l-stack {
   display: flex;
   flex-direction: column;
@@ -8,7 +12,7 @@ l-stack > * + * {
   margin-block-start: var(--space, var(--s1));
 }
 
-/* The Cluster */
+/* --- [T2-02] The Cluster --- */
 l-cluster {
   display: flex;
   flex-wrap: wrap;
@@ -17,7 +21,7 @@ l-cluster {
   align-items: var(--cluster-align, center);
 }
 
-/* The Sidebar */
+/* --- [T2-03] The Sidebar --- */
 l-sidebar {
   display: flex;
   flex-wrap: wrap;
@@ -33,7 +37,7 @@ l-sidebar > :last-child {
   min-inline-size: var(--main-min-width, 50%);
 }
 
-/* The Grid */
+/* --- [T2-04] The Grid --- */
 l-grid {
   display: grid;
   gap: var(--space, var(--s1));
@@ -43,7 +47,7 @@ l-grid {
   );
 }
 
-/* The Reel */
+/* --- [T2-05] The Reel --- */
 l-reel {
   display: flex;
   gap: var(--space, var(--s1));
@@ -56,7 +60,7 @@ l-reel > * {
   scroll-snap-align: start;
 }
 
-/* The Switcher */
+/* --- [T2-06] The Switcher --- */
 l-switcher {
   display: flex;
   flex-wrap: wrap;

@@ -1,23 +1,22 @@
-/* The Button */
+/* ==========================================================================
+   TIER 3: FUNCTIONAL ATOMS
+   ========================================================================== */
+
+/* --- [T3-01] The Button --- */
 .c-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   font-family: inherit;
   font-size: var(--s0);
   font-weight: 600;
   text-decoration: none;
-
   padding: var(--s-1) var(--s1);
   border-radius: 4px;
   border: 1px solid transparent;
-
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
-
-/* Variant: Cheer (Primary) */
 .c-button[data-loudness="cheer"] {
   background-color: var(--color-action-primary);
   color: var(--color-surface-base);
@@ -26,8 +25,6 @@
 .c-button[data-loudness="cheer"]:focus {
   filter: brightness(0.9);
 }
-
-/* Variant: Murmur (Secondary) */
 .c-button[data-loudness="murmur"] {
   background-color: transparent;
   border-color: var(--color-border-subtle);
@@ -38,7 +35,7 @@
   background-color: var(--color-surface-sunken);
 }
 
-/* Form Inputs */
+/* --- [T3-02] Form Inputs --- */
 .c-label {
   display: block;
   font-weight: 600;
@@ -46,56 +43,156 @@
   color: var(--color-text-base);
   margin-block-end: var(--s-2);
 }
-
 .c-input {
   width: 100%;
   font-family: inherit;
   font-size: var(--s0);
   color: var(--color-text-base);
-
   background-color: var(--color-surface-base);
   border: 1px solid var(--color-border-subtle);
   border-radius: 4px;
-
   padding: var(--s-1) var(--s0);
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease;
 }
-
 .c-input:focus {
   outline: none;
   border-color: var(--color-action-primary);
   box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.2);
 }
-
 .c-input:disabled {
   background-color: var(--color-surface-sunken);
   color: var(--color-text-muted);
   cursor: not-allowed;
 }
 
-/* The Badge */
+/* --- [T3-03] The Badge --- */
 .c-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  /* Inherit the parent font size, but scale it down one step */
   font-size: 0.85em;
   font-weight: 600;
   line-height: 1;
-
-  /* Proportional padding based on the text size */
   padding: 0.25em 0.65em;
-  border-radius: 999px; /* Pill shape */
-
+  border-radius: 999px;
   background-color: var(--color-surface-sunken);
   color: var(--color-text-base);
 }
-
-/* Status Variants */
 .c-badge[data-status="danger"] {
-  background-color: #fee2e2; /* Example: map to semantic token */
+  background-color: #fee2e2;
   color: #991b1b;
+}
+
+/* --- [T3-04] The Accordion --- */
+.c-accordion {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+  background-color: var(--color-surface-base);
+  overflow: hidden;
+}
+.c-accordion__item {
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.c-accordion__item:last-child {
+  border-bottom: none;
+}
+.c-accordion__trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--s0) var(--s1);
+  background: transparent;
+  border: none;
+  color: var(--color-text-base);
+  font-weight: 600;
+  font-size: var(--s0);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.c-accordion__trigger:hover,
+.c-accordion__trigger:focus {
+  background-color: var(--color-surface-sunken);
+  outline: none;
+}
+.c-accordion__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-base) var(--spring-smooth);
+}
+.c-accordion__panel.is-open {
+  grid-template-rows: 1fr;
+}
+.c-accordion__content {
+  overflow: hidden;
+  padding: 0 var(--s1);
+}
+.c-accordion__panel.is-open .c-accordion__content {
+  padding-bottom: var(--s1);
+}
+.c-accordion__icon {
+  width: 24px;
+  height: 24px;
+  transition: transform var(--dur-base) var(--spring-snappy);
+}
+.c-accordion__trigger[aria-expanded="true"] .c-accordion__icon {
+  transform: rotate(180deg);
+}
+
+/* --- [T3-05] The Dropdown --- */
+.c-dropdown-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+.c-dropdown {
+  --dropdown-width: 12rem;
+  --dropdown-offset: var(--s-1);
+  position: absolute;
+  top: calc(100% + var(--dropdown-offset));
+  left: 0;
+  z-index: 100;
+  min-inline-size: var(--dropdown-width);
+  background-color: var(--color-surface-base);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+  padding: var(--s-1);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(calc(var(--s-1) * -1));
+  transition:
+    opacity var(--dur-base) var(--spring-smooth),
+    transform var(--dur-base) var(--spring-snappy),
+    visibility var(--dur-base);
+  will-change: transform, opacity;
+}
+.c-dropdown-wrapper.is-open .c-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.c-dropdown__item {
+  display: block;
+  padding: var(--s-2) var(--s-1);
+  color: var(--color-text-base);
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: var(--s-1);
+  font-weight: 500;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+.c-dropdown__item:hover,
+.c-dropdown__item:focus {
+  background-color: var(--color-surface-sunken);
+  color: var(--color-action-primary);
+  outline: none;
+}
+.c-dropdown__divider {
+  border: none;
+  border-top: 1px solid var(--color-border-subtle);
+  margin-block: var(--s-2);
 }
