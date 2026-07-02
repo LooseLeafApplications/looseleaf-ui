@@ -105,3 +105,8 @@ main {
 .demo-bento-title {
   margin-top: var(--s-1);
 }
+
+.demo-testimonial-card {
+  width: 22rem;
+  flex-shrink: 0;
+}

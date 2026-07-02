@@ -119,3 +119,68 @@
   /* Hardware acceleration for buttery smooth cursor tracking */
   will-change: background;
 }
+
+/* ==========================================================================
+   [T5-05] THE INFINITE MARQUEE
+   ========================================================================== */
+
+.u-marquee {
+  --marquee-speed: 40s;
+
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: var(--space, var(--s1));
+
+  /* Creates the elegant fade-in/fade-out effect at the edges */
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+
+.u-marquee__track {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: var(--space, var(--s1));
+  min-width: 100%;
+
+  /* The infinite scroll engine */
+  animation: ll-marquee var(--marquee-speed) linear infinite;
+}
+
+/* Optional: Pause the animation when the user hovers to read a specific card */
+.u-marquee:hover .u-marquee__track,
+.u-marquee:focus-within .u-marquee__track {
+  animation-play-state: paused;
+}
+
+/* * Mathematical perfection: 
+ * We must translate by exactly 100% of the track's width PLUS the gap width, 
+ * otherwise the loop will "jump" when it restarts. 
+ */
+@keyframes ll-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--space, var(--s1))));
+  }
+}
+
+/* Modifier to scroll in the opposite direction */
+.u-marquee--reverse .u-marquee__track {
+  animation-direction: reverse;
+}
