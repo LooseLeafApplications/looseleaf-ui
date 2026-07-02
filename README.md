@@ -1,5 +1,8 @@
 # LooseLeaf UI Component Library
 
+[![GitHub license](https://img.shields.io/github/license/StockoL/looseleaf=ui?color=blue)](https://github.com/StockoL/looseleaf-ui/blob/main/LICENSE)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/StockoL/looseleaf-ui?color=success)](https://github.com/StockoL/looseleaf-ui)
+
 To empower lean, agile engineering teams to compose intrinsically responsive, performance-first user interfaces instantly. By utilising composable layout primitives that respect typographic boundaries (capped at `60ch`), LooseLeaf UI eliminates manual layout overrides and minimises ongoing maintenance overhead for small development footprints.
 
 ---
@@ -16,7 +19,7 @@ To empower lean, agile engineering teams to compose intrinsically responsive, pe
 8. [🧪 Quality Assurance & Browser Matrix](#qa)
 9. [🏗️ Development Log & Credits](#dev-log)
 
-### Link to sandbox (example) deployment on GitHub Pages: [https://stockol.github.io/looseleaf-ui/]
+**<a href="https://stockol.github.io/looseleaf-ui/" target="_blank" rel="noopener noreferrer">🔴 Link to sandbox (example) deployment on GitHub Pages</a>**
 
 ## 1. <a name="philosophy"></a> 📖 Project Philosophy & Principles
 
