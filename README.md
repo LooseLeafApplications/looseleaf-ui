@@ -21,7 +21,7 @@ To empower lean, agile engineering teams to compose intrinsically responsive, pe
 10. [🏗️ Development Log & Credits](#dev-log)
 11. [🤝 Authors & Maintainers](#authors)
 
-**<a href="https://stockol.github.io/looseleaf-ui/" target="_blank" rel="noopener noreferrer">🔴 Link to sandbox (example) deployment on GitHub Pages</a>**
+**<a href="https://looseleafapplications.github.io/looseleaf-ui/" target="_blank" rel="noopener noreferrer">🔴 Link to sandbox (example) deployment on GitHub Pages</a>**
 
 ## 1. <a name="philosophy"></a> 📖 Project Philosophy & Principles
 
