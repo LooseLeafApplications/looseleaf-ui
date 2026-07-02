@@ -15,9 +15,10 @@ To empower lean, agile engineering teams to compose intrinsically responsive, pe
 4. [🧩 Tier 2: Layout Primitives](#tier-2)
 5. [✨ Tier 3: Functional Atoms](#tier-3)
 6. [🏗️ Tier 4: Macro-Compositions](#tier-4)
-7. [🔧 Tier 4: Utility Classes](#tier-4u)
-8. [🧪 Quality Assurance & Browser Matrix](#qa)
-9. [🏗️ Development Log & Credits](#dev-log)
+7. [🎬 Tier 5: Animations, Physics & Motion](#tier-5)
+8. [🔧 Tier 6: Utility Classes](#tier-6)
+9. [🧪 Quality Assurance & Browser Matrix](#qa)
+10. [🏗️ Development Log & Credits](#dev-log)
 
 **<a href="https://stockol.github.io/looseleaf-ui/" target="_blank" rel="noopener noreferrer">🔴 Link to sandbox (example) deployment on GitHub Pages</a>**
 
@@ -1271,37 +1272,92 @@ A full-viewport state composition utilizing .u-min-h-screen and the ambient back
 </section>
 ```
 
-## 8. <a name="tier-5"></a> Animations
+## 7. <a name="tier-5"></a> 🎬 Tier 5: Animations, Physics & Motion
 
-### Background Animations (`.u-bg-mesh`, `.u-bg-glow`)
+Animations in LooseLeaf UI are designed to be performant, fluid, and hardware-accelerated. By utilising native CSS keyframes and cubic-bezier spring physics, we create micro-interactions that run entirely on the browser's compositor thread, preserving battery life and avoiding main-thread layout thrashing.
 
-**1. Architectural Overview**
-Hardware-accelerated, performant background effects designed to add depth to landing pages or hero sections without relying on heavy WebGL libraries.
+### 1. Spring Physics Tokens
 
-- **Primitives Used:** None (Utility classes applied to structural containers).
-- **JS Required:** **Yes** (Only for `.u-bg-glow` to track cursor coordinates).
-- **Dark Mode Implications:** The gradients use low-opacity RGBA values, allowing them to subtly tint dark mode surfaces without overpowering text contrast.
+We establish standard timing scales and cubic-bezier curves to mimic real-world kinetic weight and tension, eliminating robotic linear transitions.
 
-**2. Accessibility (a11y) Advisories**
+```css
+:root {
+  /* Josh Comeau Spring Physics Archetypes */
+  --spring-snappy: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --spring-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --spring-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-- These animations are purely decorative. They must sit behind content (`z-index: -1`) and must have `pointer-events: none` applied to their pseudo-elements so they don't block users from clicking links.
-- Automatically disabled by the global `prefers-reduced-motion` utility.
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 400ms;
+}
+```
 
-**3. Implementation (HTML Structure)**
+### Micro-Interactions (`.u-anim-lift`)
 
-```html
-<section class="c-hero u-bg-glow">
-  <l-stack>
-    <h1>This section reacts to your cursor.</h1>
-  </l-stack>
-</section>
+- **Architectural Overview:** A standard utility class applied to clickable elements (like buttons or cards) to provide tactile, kinetic depth upon mouse hover or keyboard focus.
 
-<div class="u-bg-mesh">
-  <p>This container has a slow-moving, pure CSS ambient gradient behind it.</p>
+- **Implementation:** Uses translateY and a subtle scale scaling ratio mapped to our snappy spring physics.
+
+```HTML
+<article class="c-card u-anim-lift">
+  <p>Hovering over this card causes it to float cleanly on the Z-axis.</p>
+</article>
+```
+
+### Background & Motion Containers (`.u-bg-mesh, .u-bg-glow, .u-marquee`)
+
+`.u-bg-mesh`: A slow-drifting, multi-layered ambient gradient container driven entirely by pure CSS keyframes.
+
+`.u-bg-glow`: An interactive cursor-tracking spotlight container that relies on structural coordination with JavaScript coordinates.
+
+`.u-marquee`: An infinite horizontal scrolling container (ticker) that moves content seamlessly across the screen using hardware-accelerated loops.
+
+**Accessibility (a11y) Advisories**
+
+- **Reduced Motion:** All animations are strictly bound to the prefers-reduced-motion: reduce utility. If a user has motion reduction enabled at the system level, keyframe tracking and loops freeze instantly to mitigate vestibular distress.
+
+- **Screen Reader Safety:** The infinite marquee relies on a secondary duplicate track (.u-marquee\_\_track) to create the visual loop illusion. The secondary track must include aria-hidden="true" so screen readers do not read the identical content twice.
+
+**Variables Available (Marquee Ticker)**
+
+- `--marquee-speed`: Controls the duration of one full track rotation (Defaults to 40s). Can be overridden inline to adjust pacing (e.g., style="--marquee-speed: 20s;").
+
+- `--space`: Controls the layout gap between items inside the track (Inherits from system harmonics).
+
+**Marquee Implementation (HTML Structure)**
+
+```HTML
+<div class="u-marquee" style="--space: var(--s2); --marquee-speed: 30s;">
+  <div class="u-marquee__track">
+    <article class="c-card demo-testimonial-card">...</article>
+    <article class="c-card demo-testimonial-card">...</article>
+  </div>
+
+  <div class="u-marquee__track" aria-hidden="true">
+    <article class="c-card demo-testimonial-card">...</article>
+    <article class="c-card demo-testimonial-card">...</article>
+  </div>
 </div>
 ```
 
-## 8. <a name="qa"></a> 🧪 Quality Assurance & Browser Matrix
+## 8. <a name="tier-6"></a> 🔧 Tier 6: Utility Classes
+
+Utilities are single-purpose, highly specific CSS classes used to override or tweak layouts and typography without writing custom CSS. They are always prefixed with `.u-` and often utilise `!important` to guarantee application.
+
+**Available Utilities:**
+
+- **Accessibility:** `.u-visually-hidden` (Hides content visually while remaining readable to screen readers).
+
+- **Typography:** `.u-text-center`, `.u-text-uppercase`, `.u-truncate`, `.u-text-sm`, `.u-font-semibold`.
+
+- **Colours:** `.u-text-muted`, `.u-text-danger`, `.u-text-primary`, `.u-surface-base`.
+
+- **Layout & Flex:** `.u-flex-between`, `.u-flex-center`, `.u-flex-end`, `.u-h-100`, `.u-min-h-screen`.
+
+- **Constraints:** `.u-max-measure` (Limits text blocks to 50ch horizontally).
+
+## 9. <a name="qa"></a> 🧪 Quality Assurance & Browser Matrix
 
 This section outlines the holistic verification suite executed to guarantee the engineering integrity, mathematical precision, and cross-platform accessibility of the system.
 
@@ -1314,7 +1370,7 @@ This section outlines the holistic verification suite executed to guarantee the 
 
 ---
 
-## 9. <a name="dev-log"></a> 🏗️ Development Log & Credits
+## 10. <a name="dev-log"></a> 🏗️ Development Log & Credits
 
 ### Credits & Acknowledgements
 
