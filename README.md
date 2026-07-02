@@ -19,6 +19,7 @@ To empower lean, agile engineering teams to compose intrinsically responsive, pe
 8. [🔧 Tier 6: Utility Classes](#tier-6)
 9. [🧪 Quality Assurance & Browser Matrix](#qa)
 10. [🏗️ Development Log & Credits](#dev-log)
+11. [🤝 Authors & Maintainers](#authors)
 
 **<a href="https://stockol.github.io/looseleaf-ui/" target="_blank" rel="noopener noreferrer">🔴 Link to sandbox (example) deployment on GitHub Pages</a>**
 
@@ -1385,3 +1386,12 @@ This section outlines the holistic verification suite executed to guarantee the 
 - **CSS3:** Custom properties, CSS Grid, Flexbox, `clamp()`, and mathematical logic.
 - **JavaScript (ES6+):** (Used sparingly for progressive enhancement where CSS falls short).
 - **Git & GitHub:** Atomic source control and cloud distribution.
+
+## 11. <a name="authors"></a> 🤝 Authors & Maintainers
+
+LooseLeaf UI was originally conceptualised and architected by **Louis Mannix/StockoL**.
+
+It is currently maintained by the LooseLeaf core team. If you are interested in contributing to the intrinsic layout engine, please reach out to the core maintainers for review.
+
+- **Lead Architect:** Louis Mannix ([@StockoL](https://github.com/StockoL))
+- **Organization:** [LooseLeafApplications](https://github.com/LooseLeafApplications)
