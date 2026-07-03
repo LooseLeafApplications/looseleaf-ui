@@ -681,3 +681,28 @@ button.c-list-group__item:focus {
 .c-pricing-grid {
   align-items: center; /* Ensures the side cards vertically center against the tall featured card */
 }
+
+/* ==========================================================================
+   [T4-19] THE RSVP ROW
+   ========================================================================== */
+.c-rsvp-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-1);
+  padding-block: var(--s-2);
+  border-bottom: 1px solid var(--color-border-subtle);
+  break-inside: avoid;
+}
+
+.c-rsvp-row:last-child {
+  border-bottom: none;
+}
+
+/* A compact modifier for inputs inside tight rows */
+.c-input--compact {
+  width: auto;
+  min-width: 110px;
+  padding: 0.25rem 0.5rem;
+  font-size: var(--s-1);
+}
