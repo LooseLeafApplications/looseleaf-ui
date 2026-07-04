@@ -122,7 +122,9 @@
   }
 }
 
-/* --- [T4-04] The Split Hero Banner --- */
+/* --- [T4-04] The Hero --- */
+
+/* Split Hero Banner */
 .c-hero {
   padding: var(--s4) var(--s2);
   background-color: var(--color-surface-base);
@@ -150,6 +152,17 @@
   width: 300px;
   flex-shrink: 0;
   border-radius: 8px;
+}
+
+/* The Hero Cover
+  Ensures the hero spans the full dynamic viewport height.
+*/
+.c-hero-cover {
+  display: grid;
+  place-items: center; /* Perfectly centers content horizontally and vertically */
+  min-height: 100dvh; /* dynamic viewport height accounts for mobile browser UI */
+  padding: 2rem;
+  text-align: center;
 }
 
 /* --- [T4-05] The Card --- */
