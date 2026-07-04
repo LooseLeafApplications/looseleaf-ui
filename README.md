@@ -192,6 +192,18 @@ Colours are named strictly by their structural purpose in the UI rather than the
 
 Layout primitives handle the invisible structure of the application. They are algorithmically self-governing and devoid of cosmetic styling.
 
+### The Container (`l-container`)
+
+Foundational wrapper for whole sections.
+
+```css
+l-container {
+  max-width: var(--measure, 60ch); /* 60 characters is optimal reading length */
+  margin-inline: auto;
+  padding-inline: 1rem; /* Acts as a gutter on small screens */
+}
+```
+
 ### The Stack (`l-stack`)
 
 Injects a uniform vertical margin between consecutive sibling elements, using the lobotomised owl selector (`* + *`).

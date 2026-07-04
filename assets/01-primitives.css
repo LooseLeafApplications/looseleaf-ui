@@ -1,6 +1,12 @@
 /* ==========================================================================
    TIER 2: LAYOUT PRIMITIVES
    ========================================================================== */
+/* --- [T2-00] The Container --- */
+l-container {
+  max-width: var(--measure, 65ch); /* 65 characters is optimal reading length */
+  margin-inline: auto;
+  padding-inline: 1rem; /* Acts as a gutter on small screens */
+}
 
 /* --- [T2-01] The Stack --- */
 l-stack {
