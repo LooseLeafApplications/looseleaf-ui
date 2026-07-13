@@ -1,0 +1,35 @@
+{
+  "colors": {
+    "surface-base": "#ffffff",
+    "surface-sunken": "#f4f4f5",
+    "text-base": "#18181b",
+    "text-muted": "#71717a",
+    "action-primary": "#0070f3",
+    "border-subtle": "#e4e4e7"
+  },
+  "_comment_spacing": "PROCESS: Visit https://utopia.fyi/space/calculator/ to generate fluid spaces. Paste the resulting keys/values below.",
+  "spacing": {
+    "xs": "clamp(0.50rem, 0.45rem + 0.25vw, 0.63rem)",
+    "sm": "clamp(0.75rem, 0.65rem + 0.50vw, 1.00rem)",
+    "md": "clamp(1.13rem, 0.98rem + 0.75vw, 1.50rem)",
+    "lg": "clamp(1.50rem, 1.30rem + 1.00vw, 2.00rem)",
+    "xl": "clamp(2.00rem, 1.75rem + 1.25vw, 2.75rem)"
+  },
+  "_comment_typography": "PROCESS: Visit https://utopia.fyi/type/calculator/ to configure your fluid scale. Set your min/max viewport and base font sizes, then paste the generated step keys/values below.",
+  "typography": {
+    "step-0": "clamp(1.00rem, 0.93rem + 0.36vw, 1.20rem)",
+    "step-1": "clamp(1.20rem, 1.07rem + 0.63vw, 1.55rem)",
+    "step-2": "clamp(1.44rem, 1.24rem + 1.02vw, 2.01rem)",
+    "step-3": "clamp(1.73rem, 1.42rem + 1.53vw, 2.59rem)",
+    "step-4": "clamp(2.07rem, 1.63rem + 2.21vw, 3.33rem)"
+  },
+  "transitions": {
+    "spring-snappy": "cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+    "spring-smooth": "cubic-bezier(0.4, 0, 0.2, 1)",
+    "dur-fast": "150ms",
+    "dur-base": "250ms"
+  },
+  "layout": {
+    "measure": "60ch"
+  }
+}

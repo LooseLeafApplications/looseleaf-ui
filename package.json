@@ -1,0 +1,28 @@
+{
+  "name": "looseleaf-ui",
+  "version": "1.0.0",
+  "description": "Bespoke, architecture-first CUBE CSS design system template library.",
+  "main": "src/index.css",
+  "scripts": {
+    "build:tokens": "node build-tokens.js",
+    "build:css": "cat src/index.css > dist/styles.css",
+    "build": "npm run build:tokens && npm run build:css"
+  },
+  "keywords": [
+    "css",
+    "cube-css",
+    "design-tokens",
+    "responsive-design",
+    "accessibility"
+  ],
+  "author": "Louis Mannix",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LooseLeafApplications/looseleaf-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LooseLeafApplications/looseleaf-ui/issues"
+  },
+  "homepage": "https://github.com/LooseLeafApplications/looseleaf-ui#readme"
+}
