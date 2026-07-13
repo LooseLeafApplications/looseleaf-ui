@@ -1,0 +1,69 @@
+/* ==========================================================================
+   BLOCK: ACCORDION
+   ========================================================================== */
+
+.accordion {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+  background-color: var(--color-surface-base);
+  overflow: hidden;
+}
+
+.accordion__item {
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.accordion__item:last-child {
+  border-bottom: none;
+}
+
+.accordion__trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-s) var(--space-m);
+  background: transparent;
+  border: none;
+  color: var(--color-text-base);
+  font-weight: 600;
+  font-size: var(--size-step-base);
+  cursor: pointer;
+  transition: background-color var(--dur-fast) ease;
+}
+
+.accordion__trigger:hover,
+.accordion__trigger:focus-visible {
+  background-color: var(--color-surface-sunken);
+  outline: none;
+}
+
+/* Grid Interpolation Trick for Smooth Auto-Height */
+.accordion__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-base) var(--spring-smooth);
+}
+
+.accordion__panel[data-state="open"] {
+  grid-template-rows: 1fr;
+}
+
+.accordion__content {
+  overflow: hidden;
+  padding-inline: var(--space-m);
+}
+
+.accordion__panel[data-state="open"] .accordion__content {
+  padding-bottom: var(--space-m);
+}
+
+.accordion__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: transform var(--dur-base) var(--spring-snappy);
+}
+
+.accordion__trigger[aria-expanded="true"] .accordion__icon {
+  transform: rotate(180deg);
+}

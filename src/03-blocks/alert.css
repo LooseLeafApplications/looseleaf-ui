@@ -1,0 +1,70 @@
+/* ==========================================================================
+   BLOCK: ALERT
+   ========================================================================== */
+
+.alert {
+  /* Internal state defaults */
+  --alert-bg: var(--color-surface-base);
+  --alert-border: var(--color-border-subtle);
+  --alert-text: var(--color-text-base);
+
+  padding: var(--space-s);
+  border-radius: 8px;
+  border: 1px solid var(--alert-border);
+  background-color: var(--alert-bg);
+  color: var(--alert-text);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* 
+ * CUBE Exceptions (Status Variants) 
+ * We reassign the variables rather than duplicating the CSS properties 
+ */
+.alert[data-status="info"] {
+  --alert-bg: #eff6ff;
+  --alert-border: #bfdbfe;
+  --alert-text: #1e3a8a;
+}
+
+.alert[data-status="success"] {
+  --alert-bg: #f0fdf4;
+  --alert-border: #bbf7d0;
+  --alert-text: #166534;
+}
+
+.alert[data-status="warning"] {
+  --alert-bg: #fffbeb;
+  --alert-border: #fde68a;
+  --alert-text: #92400e;
+}
+
+.alert[data-status="danger"] {
+  --alert-bg: #fef2f2;
+  --alert-border: #fecaca;
+  --alert-text: #991b1b;
+}
+
+.alert__close {
+  background: transparent;
+  border: none;
+  color: inherit;
+  opacity: 0.7;
+  cursor: pointer;
+  padding: var(--space-xs);
+  border-radius: 4px;
+  transition:
+    opacity var(--dur-fast),
+    background-color var(--dur-fast);
+}
+
+.alert__close:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.alert[data-state="removing"] {
+  opacity: 0;
+  transform: scale(0.95);
+}

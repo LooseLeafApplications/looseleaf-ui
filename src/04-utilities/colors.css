@@ -1,0 +1,32 @@
+/* ==========================================================================
+   UTILITY: COLORS (Text & Surface)
+   ========================================================================== */
+
+/* --- Text Colors --- */
+.text-primary {
+  color: var(--color-action-primary);
+}
+.text-muted {
+  color: var(--color-text-muted);
+}
+.text-danger {
+  color: #dc2626;
+} /* Standard semantic override */
+
+@media (prefers-color-scheme: dark) {
+  .text-danger {
+    color: #f87171;
+  }
+}
+
+/* --- Surface Colors --- */
+.bg-surface-base {
+  background-color: var(--color-surface-base);
+}
+.bg-surface-sunken {
+  background-color: var(--color-surface-sunken);
+}
+.bg-primary {
+  background-color: var(--color-action-primary);
+  color: var(--color-surface-base);
+}

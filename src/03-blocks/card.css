@@ -1,0 +1,24 @@
+/* ==========================================================================
+   BLOCK: CARD
+   ========================================================================== */
+
+.card {
+  background-color: var(--color-surface-base);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+  padding: var(--space-m);
+  position: relative;
+  overflow: hidden; /* Automatically clips child images to the border-radius */
+}
+
+/* If a card contains an image that should sit flush to the edges */
+.card > img:first-child {
+  /* Reset the padding constraint for edge-to-edge media */
+  margin-block-start: calc(var(--space-m) * -1);
+  margin-inline: calc(var(--space-m) * -1);
+  max-width: calc(100% + (var(--space-m) * 2));
+  width: calc(100% + (var(--space-m) * 2));
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin-block-end: var(--space-m);
+}
