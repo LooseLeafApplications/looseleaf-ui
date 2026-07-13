@@ -116,12 +116,13 @@ npm run build:tokens
 
 The repository maintains a strict boundary between Build Tooling Engine (root directory) and Source Code Assets (src/).
 
+```text
 looseleaf-ui/
 ├── design-tokens.json <-- Single Source of Truth (JSON Tokens)
 ├── build-tokens.js <-- Compiler Engine (Vanilla Node.js)
 ├── package.json <-- Project Manifest & Build Commands
 │
-└── src/  
+└── src/
  ├── index.css <-- Orchestrator & Native @layer Definitions
 │
 ├── 01-global/ <-- Resets, Tokens, and Core Typography
@@ -159,6 +160,7 @@ looseleaf-ui/
 │
 └── scripts/
 └── behaviors.js <-- DOM Event Delegation Engine
+```
 
 ---
 
