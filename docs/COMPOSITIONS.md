@@ -237,6 +237,11 @@ A slide-out mobile menu or filter drawer using the native HTML5 `<dialog>` eleme
 </dialog>
 ```
 
+#### Why This Works
+
+- Native Accessibility Layering: Nesting `.flow` inside the native `<dialog>` element guarantees focus trapping and keyboard navigation routes work out of the box while automating vertical link rhythm.
+- Isolated Spatial Constraints: The `.wrapper` primitive prevents drawer text from pressing against screen edges on mobile devices without hardcoding margins into individual navigation anchors.
+
 ### <a name="case-study-5"></a> Case Study 5: The Bento Feature Grid
 
 #### The Goal
@@ -281,6 +286,11 @@ An asymmetric feature showcase grid where individual cards calculate their layou
 </div>
 ```
 
+#### Why This Works
+
+- Dynamic Column Reflow: `--grid-min-item-size` establishes the minimum threshold for secondary cards, allowing them to wrap into clean multi-row grids on tablet viewports without breakpoint maintenance.
+- Encapsulated Content Flow: Wrapping internal card content in `.flow` keeps titles, badges, and copy spaced predictably regardless of column span or card height variations.
+
 ### <a name="case-study-6"></a> Case Study 6: The Media Object/Testimonial Stack
 
 #### The Goal
@@ -321,6 +331,11 @@ A fixed-size avatar or image situated next to fluid, multi-line copy that automa
   </div>
 </article>
 ```
+
+#### Why This Works
+
+- Algorithmic Stacking: Setting a small `--sidebar-target-width` (`4rem`) locks the avatar width while letting the quote fill remaining inline space. If container width becomes constricted, it stacks vertically automatically.
+- Zero Flexbox Hacks: Using `.sidebar` eliminates the need for manual flex-shrink, flex-grow, or media-query overrides on small-screen card previews.
 
 ## 3. <a name="block-guidelines"></a> 🧱 Block Architectural Guidelines
 
@@ -382,6 +397,12 @@ Below are the architectural definitions for LooseLeaf UI's foundational visual b
 }
 ```
 
+##### Why This Works
+
+- DRY Parameter Isolation: Instead of duplicating rules across `.button-primary` or `.button-small`, all variations modify local custom properties (`--button-bg`, `--button-border`). The core structure (padding, transitions, flex alignment) is written only once.
+- Pure Visual Boundary: The block is completely purged of outer margins, allowing it to sit inside a `.cluster` for horizontal alignment or a `.flow` for vertical stack rhythm without layout conflicts.
+- Semantic Exception Hooks: Using HTML attributes such as `data-variant="primary"` or `data-size="small"` keeps class names clean and avoids specificity wars.
+
 ### <a name="block-card"></a> The Card Block (`.card`)
 
 #### CSS Implementation (`src/03-blocks/card.css`)
@@ -408,6 +429,12 @@ Below are the architectural definitions for LooseLeaf UI's foundational visual b
   }
 }
 ```
+
+#### Why This Works
+
+- Calculated Full-Bleed Media: The `.card__media` helper uses `calc(var(--card-padding) * -1)` to pull child images negative-margin distance back to the container border. If you adjust the card's internal padding, the image calculation updates automatically.
+- Encapsulated Formatting: With `overflow: hidden`, child images clip to the card's border radius cleanly without requiring complex border-radius calculations on child tags.
+- Layout Agnostic: The card focuses strictly on surface aesthetics (backgrounds, borders, radii). It can be dropped inside a `.grid`, `.switcher`, or `.sidebar` without breaking parent composition bounds.
 
 ### <a name="block-input"></a> The Input Block (`.input` & `.field`)
 
@@ -450,6 +477,11 @@ Below are the architectural definitions for LooseLeaf UI's foundational visual b
 }
 ```
 
+#### Why This Works
+
+- Native State Integration: Instead of adding an `.is-invalid` or `.has-error` class, input errors hook directly into the standard `[aria-invalid="true"]` accessibility attribute. This enforces accessible state management in the DOM before visual styling even applies.
+- Decoupled Field Structure: Standardising `.field` as a pure flex column with a local gap keeps the `<label>` and `<input>` grouped predictably without applying vertical margins to individual elements.
+
 ### <a name="block-badge"></a> The Badge Block (`.badge`)
 
 #### Implementation (`src/03-blocks/badge.css`)
@@ -489,3 +521,8 @@ Below are the architectural definitions for LooseLeaf UI's foundational visual b
   }
 }
 ```
+
+#### Why This Works
+
+- Font-Relative Proportions: By defining padding in `em` units (`0.25em 0.65em`) rather than fixed `rem` or `px` values, the badge scales fluidly to match whatever parent typography step it sits inside (e.g., inside an `<h1>` or a small paragraph).
+- Pill-Radius Resilience: Setting `border-radius: 999px` guarantees a perfectly rounded pill shape regardless of the text length or font size inside the badge.
