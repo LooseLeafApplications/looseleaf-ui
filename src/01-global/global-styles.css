@@ -7,8 +7,8 @@ body {
   min-height: 100%; /* Better support than min-inline-size */
   font-family: system-ui, sans-serif;
   line-height: 1.5;
-  color: var(--color-text-base);
-  background-color: var(--color-surface-base);
+  color: var(--colors-text-base);
+  background-color: var(--colors-surface-base);
   overflow-wrap: break-word;
 }
 
@@ -21,7 +21,7 @@ li,
 dl,
 figcaption,
 blockquote {
-  max-width: var(--measure);
+  max-width: var(--layout-measure);
 }
 
 h1,
@@ -30,21 +30,21 @@ h3,
 h4,
 h5,
 h6 {
-  max-width: var(--measure);
+  max-width: var(--layout-measure);
   line-height: 1.2; /* Tighter line height for headings */
   text-wrap: balance; /* Modern CSS to prevent awkward single-word widows */
 }
 
 /* Map heading tags to the fluid scale */
 h1 {
-  font-size: var(--size-step-4);
+  font-size: var(--typography-step-4);
 }
 h2 {
-  font-size: var(--size-step-3);
+  font-size: var(--typography-step-3);
 }
 h3 {
-  font-size: var(--size-step-2);
+  font-size: var(--typography-step-2);
 }
 h4 {
-  font-size: var(--size-step-1);
+  font-size: var(--typography-step-1);
 }

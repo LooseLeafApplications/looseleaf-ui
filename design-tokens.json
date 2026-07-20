@@ -1,11 +1,48 @@
 {
+  "_comment_colors": "PROCESS: neutral-* is the raw grayscale ramp. Semantic tokens (surface-*, text-*, border-*) alias into it via var(--colors-neutral-N)) so the ramp stays the single source of truth. Status tokens (success/warning/danger/info) each ship a base + -bg/-border/-text trio for blocks like alert and badge.",
   "colors": {
-    "surface-base": "#ffffff",
-    "surface-sunken": "#f4f4f5",
-    "text-base": "#18181b",
-    "text-muted": "#71717a",
+    "neutral-0": "#ffffff",
+    "neutral-50": "#fafafa",
+    "neutral-100": "#f4f4f5",
+    "neutral-200": "#e4e4e7",
+    "neutral-300": "#d4d4d8",
+    "neutral-400": "#a1a1aa",
+    "neutral-500": "#71717a",
+    "neutral-600": "#52525b",
+    "neutral-700": "#3f3f46",
+    "neutral-800": "#27272a",
+    "neutral-900": "#18181b",
+    "neutral-950": "#09090b",
+
     "action-primary": "#0070f3",
-    "border-subtle": "#e4e4e7"
+
+    "surface-base": "var(--colors-neutral-0)",
+    "surface-sunken": "var(--colors-neutral-100)",
+    "text-base": "var(--colors-neutral-900)",
+    "text-muted": "var(--colors-neutral-500)",
+    "text-on-action": "var(--colors-neutral-0)",
+    "border-subtle": "var(--colors-neutral-200)",
+    "border-strong": "var(--colors-neutral-300)",
+
+    "success": "#16a34a",
+    "success-bg": "#f0fdf4",
+    "success-border": "#bbf7d0",
+    "success-text": "#166534",
+
+    "warning": "#d97706",
+    "warning-bg": "#fffbeb",
+    "warning-border": "#fde68a",
+    "warning-text": "#92400e",
+
+    "danger": "#dc2626",
+    "danger-bg": "#fef2f2",
+    "danger-border": "#fecaca",
+    "danger-text": "#991b1b",
+
+    "info": "#0284c7",
+    "info-bg": "#eff6ff",
+    "info-border": "#bfdbfe",
+    "info-text": "#1e3a8a"
   },
   "_comment_spacing": "PROCESS: Visit https://utopia.fyi/space/calculator/ to generate fluid spaces. Paste the resulting keys/values below.",
   "spacing": {
@@ -29,7 +66,9 @@
     "dur-fast": "150ms",
     "dur-base": "250ms"
   },
+  "_comment_layout": "PROCESS: 'measure' caps prose/content width (used by .center and typographic elements). 'wrapper-max-width' caps macro page-section width (used by .wrapper) and is deliberately a separate, wider value — the two primitives solve different problems and should not share a default.",
   "layout": {
-    "measure": "60ch"
+    "measure": "60ch",
+    "wrapper-max-width": "80rem"
   }
 }

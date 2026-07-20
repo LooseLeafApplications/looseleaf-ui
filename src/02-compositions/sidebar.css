@@ -10,7 +10,7 @@
 .sidebar {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--gutter, 1rem);
+  gap: var(--sidebar-space, var(--gutter, 1rem));
 }
 
 .sidebar > :first-child {

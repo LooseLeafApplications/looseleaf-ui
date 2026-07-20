@@ -5,20 +5,20 @@
 /* --- The Lift & Scale --- */
 .anim-lift {
   transition:
-    transform var(--dur-base) var(--spring-snappy),
-    box-shadow var(--dur-base) var(--spring-snappy);
+    transform var(--transitions-dur-base) var(--transitions-spring-snappy),
+    box-shadow var(--transitions-dur-base) var(--transitions-spring-snappy);
   will-change: transform;
 }
 
 .anim-lift:hover {
-  transform: translateY(calc(var(--space-xs) * -1)) scale(1.02);
+  transform: translateY(calc(var(--spacing-xs) * -1)) scale(1.02);
 }
 
 /* --- The Ambient Mesh --- */
 .bg-mesh {
   position: relative;
   overflow: hidden;
-  background-color: var(--color-surface-base);
+  background-color: var(--colors-surface-base);
   z-index: 0;
 }
 

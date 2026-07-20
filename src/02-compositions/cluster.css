@@ -10,6 +10,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--gutter, 1rem);
-  justify-content: flex-start;
+  justify-content: var(--cluster-justify, flex-start);
   align-items: var(--cluster-align, center);
 }

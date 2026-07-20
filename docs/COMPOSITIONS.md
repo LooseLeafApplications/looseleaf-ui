@@ -45,7 +45,17 @@ In traditional frameworks, layout positioning, margins, and component styling ar
 | **Sidebar**  | `.sidebar`  | Asymmetric 2-column layout (fixed-target panel + fluid main area).    | `--sidebar-target-width`               |
 | **Switcher** | `.switcher` | Forces items side-by-side until container hits a minimum threshold.   | `--switcher-threshold`                 |
 | **Grid**     | `.grid`     | Auto-filling, intrinsically responsive CSS Grid layout.               | `--grid-min-item-size`                 |
-| **Wrapper**  | `.wrapper`  | Constrains maximum inline reading/layout width with auto margins.     | `--wrapper-max-width`                  |
+| **Wrapper**  | `.wrapper`  | Macro page-section container: caps a *site* max-width, auto margins.  | `--wrapper-max-width`, `--wrapper-gutters` |
+| **Center**   | `.center`   | Content primitive: caps a box to the *reading measure*, auto margins. | `--center-max-width`, `--center-gutters` |
+
+### Wrapper vs. Center — which one do I reach for?
+
+These look similar (both cap a width and center it) but solve different problems, and are not interchangeable:
+
+- **`.wrapper`** is the outermost, macro-layout shell. Use it once per full-bleed section (a `<header>`, `<footer>`, or page region) to align its contents to a consistent, wide, site-level edge margin (default `80rem`). Padding is included in the width cap (plain border-box) — the same as everything else in the system.
+- **`.center`** is a content primitive. Use it around prose, hero copy, or any box that needs to cap at the *typographic reading measure* (default `60ch`) rather than the site width. It uses `box-sizing: content-box` deliberately, so its gutter padding is never eaten into the measure cap — a reading-width guarantee `.wrapper` does not make. It also offers `[data-and-text]` and `[data-intrinsic]` exceptions for centering its own children, which `.wrapper` intentionally does not.
+
+A common pattern is nesting them: `.wrapper` for the section's site-wide edge margin, `.center` inside it to cap a heading or intro paragraph to a comfortable reading width.
 
 ---
 

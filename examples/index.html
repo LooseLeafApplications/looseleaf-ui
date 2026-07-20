@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LooseLeaf UI — Live Demo</title>
+    <link rel="stylesheet" href="../src/index.css" />
+    <style>
+      /* Demo-only scaffolding — not part of the shipped library */
+      .demo-section {
+        padding-block: var(--spacing-xl);
+        border-bottom: 1px solid var(--colors-border-subtle);
+      }
+      .demo-section:nth-of-type(odd) {
+        background-color: var(--colors-surface-sunken);
+      }
+      .demo-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--colors-text-muted);
+      }
+      .swatch {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        block-size: 5rem;
+        border-radius: 8px;
+        border: 1px solid var(--colors-border-subtle);
+        padding: var(--spacing-xs);
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+      .placeholder-media {
+        min-height: 12rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        color: var(--colors-text-on-action);
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="visually-hidden" href="#main">Skip to content</a>
+
+    <!-- ==================================================================
+         NAVBAR (Block) inside WRAPPER (macro section container)
+         ================================================================== -->
+    <header class="navbar">
+      <div class="wrapper">
+        <div class="cluster" style="--cluster-justify: space-between;">
+          <a href="#main" class="navbar__brand">LooseLeaf UI</a>
+
+          <button
+            class="navbar__toggle"
+            aria-expanded="false"
+            aria-controls="primary-nav"
+          >
+            Menu
+          </button>
+
+          <nav id="primary-nav" class="navbar__menu">
+            <div class="cluster">
+              <a href="#tokens" class="navbar__link">Tokens</a>
+              <a href="#compositions" class="navbar__link">Compositions</a>
+              <a href="#blocks" class="navbar__link">Blocks</a>
+              <a href="#utilities" class="navbar__link">Utilities</a>
+              <button class="button" data-variant="primary">Get Started</button>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ================================================================
+           HERO — Wrapper > Switcher > Flow + Cluster (Case Study 1)
+           ================================================================ -->
+      <section class="demo-section">
+        <div class="wrapper">
+          <div class="switcher" style="--switcher-threshold: 50rem;">
+            <div class="flow">
+              <p class="demo-label">LooseLeaf UI</p>
+              <h1>Build resilient interfaces with CUBE CSS</h1>
+              <p>
+                A lightweight, dependency-free design system that separates
+                macro layout from visual aesthetics — composed live on this
+                page using nothing but the shipped stylesheet.
+              </p>
+              <div class="cluster">
+                <button class="button" data-variant="primary">
+                  Get Started
+                </button>
+                <button class="button">Documentation</button>
+              </div>
+            </div>
+            <div
+              class="placeholder-media bg-mesh"
+              style="background-color: var(--colors-action-primary);"
+            >
+              <span>Media Slot</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           DESIGN TOKENS — the palette built out this session
+           ================================================================ -->
+      <section class="demo-section" id="tokens">
+        <div class="wrapper flow">
+          <div class="center" data-and-text>
+            <h2>Design Tokens</h2>
+            <p class="text-muted">
+              Every color below is a live custom property from
+              <code>design-tokens.json</code>, compiled by
+              <code>build-tokens.js</code>.
+            </p>
+          </div>
+
+          <div class="flow">
+            <h3>Neutral Ramp</h3>
+            <div class="grid" style="--grid-min-item-size: 6rem;">
+              <div
+                class="swatch"
+                style="background-color: var(--colors-neutral-0); color: var(--colors-neutral-900);"
+              >
+                neutral-0
+              </div>
+              <div
+                class="swatch"
+                style="background-color: var(--colors-neutral-100); color: var(--colors-neutral-900);"
+              >
+                neutral-100
+              </div>
+              <div
+                class="swatch"
+                style="background-color: var(--colors-neutral-200); color: var(--colors-neutral-900);"
+              >
+                neutral-200
+              </div>
+              <div
+                class="swatch"
+                style="background-color: var(--colors-neutral-300); color: var(--colors-neutral-900);"
+              >
+                neutral-300
+              </div>
+              <div
+                class="swatch"
+                style="background-color: var(--colors-neutral-400); color: var(--colors-neutral-0);"
+              >
+                neutral-400
+              </div>
+              <div
+                class="swatch"
+                style="background-color: var(--colors-neutral-500); color: var(--colors-neutral-0);"
+              >
+                neutral-500
+              </div>
+              <div
+                class="swatch"
+                style="background-color: var(--colors-neutral-600); color: var(--colors-neutral-0);"
+              >
+                neutral-600
+              </div>
+              <div
+                class="swatch"
+                style="background-color: var(--colors-neutral-700); color: var(--colors-neutral-0);"
+              >
+                neutral-700
+              </div>
+              <div
+                class="swatch"
+                style="background-color: var(--colors-neutral-800); color: var(--colors-neutral-0);"
+              >
+                neutral-800
+              </div>
+              <div
+                class="swatch"
+                style="background-color: var(--colors-neutral-900); color: var(--colors-neutral-0);"
+              >
+                neutral-900
+              </div>
+              <div
+                class="swatch"
+                style="background-color: var(--colors-neutral-950); color: var(--colors-neutral-0);"
+              >
+                neutral-950
+              </div>
+            </div>
+          </div>
+
+          <div class="flow">
+            <h3>Semantic Status Colors</h3>
+            <div class="grid" style="--grid-min-item-size: 14rem;">
+              <div
+                class="swatch"
+                style="background-color: var(--colors-success-bg); border-color: var(--colors-success-border); color: var(--colors-success-text);"
+              >
+                success
+              </div>
+              <div
+                class="swatch"
+                style="background-color: var(--colors-warning-bg); border-color: var(--colors-warning-border); color: var(--colors-warning-text);"
+              >
+                warning
+              </div>
+              <div
+                class="swatch"
+                style="background-color: var(--colors-danger-bg); border-color: var(--colors-danger-border); color: var(--colors-danger-text);"
+              >
+                danger
+              </div>
+              <div
+                class="swatch"
+                style="background-color: var(--colors-info-bg); border-color: var(--colors-info-border); color: var(--colors-info-text);"
+              >
+                info
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           COMPOSITIONS
+           ================================================================ -->
+      <section class="demo-section" id="compositions">
+        <div class="wrapper flow">
+          <h2>Compositions</h2>
+
+          <div class="flow">
+            <h3>Sidebar — Media Object (Case Study 6)</h3>
+            <article class="card">
+              <div
+                class="sidebar"
+                style="--sidebar-target-width: 4rem; --sidebar-space: var(--spacing-md);"
+              >
+                <div
+                  class="placeholder-media"
+                  style="block-size: 4rem; inline-size: 4rem; border-radius: 999px; background-color: var(--colors-action-primary);"
+                >
+                  AL
+                </div>
+                <div class="flow">
+                  <blockquote>
+                    "LooseLeaf UI completely transformed how our engineering
+                    team approaches design systems."
+                  </blockquote>
+                  <p class="text-muted">
+                    <strong>Ada Lovelace</strong> — Lead Systems Architect
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="flow">
+            <h3>Bento Grid (Case Study 5)</h3>
+            <div class="bento">
+              <article class="card" data-span="2">
+                <div class="flow">
+                  <span class="badge" data-status="info">Featured</span>
+                  <h4>Next-Gen Token Compiler</h4>
+                  <p>
+                    Automate your design system pipeline from JSON direct to
+                    native CSS Custom Properties.
+                  </p>
+                </div>
+              </article>
+              <article class="card">
+                <div class="flow">
+                  <h4>Zero Dependencies</h4>
+                  <p>Shipped with plain ES6 and native browser standards.</p>
+                </div>
+              </article>
+              <article class="card">
+                <div class="flow">
+                  <h4>CUBE CSS Architecture</h4>
+                  <p>Flat specificity layers using CSS @layer boundaries.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="flow">
+            <h3>Reel — Horizontal Scroll Snap</h3>
+            <div class="reel">
+              <article class="card" style="min-inline-size: 16rem;">
+                <div class="flow"><h4>Card One</h4><p>Snaps into place.</p></div>
+              </article>
+              <article class="card" style="min-inline-size: 16rem;">
+                <div class="flow"><h4>Card Two</h4><p>Scroll horizontally.</p></div>
+              </article>
+              <article class="card" style="min-inline-size: 16rem;">
+                <div class="flow"><h4>Card Three</h4><p>Touch or trackpad.</p></div>
+              </article>
+              <article class="card" style="min-inline-size: 16rem;">
+                <div class="flow"><h4>Card Four</h4><p>No JS required.</p></div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           BLOCKS
+           ================================================================ -->
+      <section class="demo-section" id="blocks">
+        <div class="wrapper flow">
+          <h2>Blocks</h2>
+
+          <div class="grid" style="--grid-min-item-size: 20rem;">
+            <!-- Card + Input -->
+            <article class="card">
+              <div class="flow">
+                <h3>Sign up</h3>
+                <div class="flow" style="--flow-space: 0.4em;">
+                  <label class="label" for="email">Email address</label>
+                  <input class="input" type="email" id="email" placeholder="you@example.com" />
+                </div>
+                <div class="flow" style="--flow-space: 0.4em;">
+                  <label class="label" for="email-invalid">Invalid state</label>
+                  <input
+                    class="input"
+                    type="email"
+                    id="email-invalid"
+                    aria-invalid="true"
+                    value="not-an-email"
+                  />
+                </div>
+                <button class="button" data-variant="primary">Continue</button>
+              </div>
+            </article>
+
+            <!-- Accordion -->
+            <article class="card">
+              <div class="flow">
+                <h3>Accordion</h3>
+                <div class="accordion">
+                  <div class="accordion__item">
+                    <button
+                      class="accordion__trigger"
+                      aria-expanded="true"
+                      aria-controls="panel-1"
+                      id="trigger-1"
+                    >
+                      What is CUBE CSS?
+                      <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="accordion__panel" data-state="open" id="panel-1">
+                      <div class="accordion__content">
+                        <p>Composition, Utility, Block, Exception.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion__item">
+                    <button
+                      class="accordion__trigger"
+                      aria-expanded="false"
+                      aria-controls="panel-2"
+                      id="trigger-2"
+                    >
+                      Does it need a framework?
+                      <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="accordion__panel" data-state="closed" id="panel-2">
+                      <div class="accordion__content">
+                        <p>No — it's plain CSS and vanilla ES6.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Dropdown -->
+            <article class="card">
+              <div class="flow">
+                <h3>Dropdown</h3>
+                <div class="dropdown-wrapper">
+                  <button class="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Options
+                  </button>
+                  <div class="dropdown" role="menu">
+                    <a href="#" class="dropdown__item" role="menuitem">Edit</a>
+                    <a href="#" class="dropdown__item" role="menuitem">Duplicate</a>
+                    <hr class="dropdown__divider" />
+                    <a href="#" class="dropdown__item" role="menuitem">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Badges -->
+            <article class="card">
+              <div class="flow">
+                <h3>Badges</h3>
+                <div class="cluster">
+                  <span class="badge">Default</span>
+                  <span class="badge" data-status="info">Info</span>
+                  <span class="badge" data-status="success">Success</span>
+                  <span class="badge" data-status="warning">Warning</span>
+                  <span class="badge" data-status="danger">Danger</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card with full-bleed media -->
+            <article class="card">
+              <img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230070f3'/%3E%3Cstop offset='1' stop-color='%2318181b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='225' fill='url(%23g)'/%3E%3C/svg%3E"
+                alt="Placeholder gradient"
+              />
+              <div class="flow">
+                <h3>Full-bleed Media</h3>
+                <p>The card's first child image clips to the border radius.</p>
+              </div>
+            </article>
+
+            <!-- Modal + Offcanvas triggers -->
+            <article class="card">
+              <div class="flow">
+                <h3>Overlays</h3>
+                <div class="cluster">
+                  <button class="button" data-open-dialog="demo-modal">
+                    Open Modal
+                  </button>
+                  <button class="button" data-open-dialog="demo-drawer">
+                    Open Drawer
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="flow">
+            <h3>Alerts</h3>
+            <div class="flow" style="--flow-space: var(--spacing-sm);">
+              <div class="alert" data-status="info">
+                <div class="cluster" style="--cluster-justify: space-between;">
+                  <p>Heads up — this is an informational alert.</p>
+                  <button class="alert__close" aria-label="Dismiss">&times;</button>
+                </div>
+              </div>
+              <div class="alert" data-status="success">
+                <div class="cluster" style="--cluster-justify: space-between;">
+                  <p>Success — your changes have been saved.</p>
+                  <button class="alert__close" aria-label="Dismiss">&times;</button>
+                </div>
+              </div>
+              <div class="alert" data-status="warning">
+                <div class="cluster" style="--cluster-justify: space-between;">
+                  <p>Warning — this action can't be undone.</p>
+                  <button class="alert__close" aria-label="Dismiss">&times;</button>
+                </div>
+              </div>
+              <div class="alert" data-status="danger">
+                <div class="cluster" style="--cluster-justify: space-between;">
+                  <p>Danger — something went wrong.</p>
+                  <button class="alert__close" aria-label="Dismiss">&times;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           UTILITIES
+           ================================================================ -->
+      <section class="demo-section" id="utilities">
+        <div class="wrapper flow">
+          <h2>Utilities</h2>
+
+          <div class="grid" style="--grid-min-item-size: 14rem;">
+            <article class="card anim-lift">
+              <div class="flow">
+                <h4>.anim-lift</h4>
+                <p class="text-muted">Hover this card.</p>
+              </div>
+            </article>
+            <article class="card indent" style="--indent-color: var(--colors-action-primary);">
+              <div class="flow">
+                <h4>.indent</h4>
+                <p class="text-muted">Decorative edge accent.</p>
+              </div>
+            </article>
+            <article class="card">
+              <p class="text-center">.text-center</p>
+              <p class="text-uppercase">.text-uppercase</p>
+              <p class="truncate" style="max-width: 10ch;">.truncate a long sentence</p>
+            </article>
+          </div>
+
+          <div class="flow">
+            <h4>.marquee</h4>
+            <div class="marquee">
+              <div class="marquee__track">
+                <span class="badge" data-status="info">Composition</span>
+                <span class="badge" data-status="success">Utility</span>
+                <span class="badge" data-status="warning">Block</span>
+                <span class="badge" data-status="danger">Exception</span>
+              </div>
+              <div class="marquee__track" aria-hidden="true">
+                <span class="badge" data-status="info">Composition</span>
+                <span class="badge" data-status="success">Utility</span>
+                <span class="badge" data-status="warning">Block</span>
+                <span class="badge" data-status="danger">Exception</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="demo-section">
+      <div class="wrapper">
+        <p class="text-muted">LooseLeaf UI — live demo, not shipped as part of the library.</p>
+      </div>
+    </footer>
+
+    <!-- ================================================================
+         MODAL & OFFCANVAS (native <dialog>, triggered via behaviors.js)
+         ================================================================ -->
+    <dialog class="modal" id="demo-modal">
+      <div class="flow">
+        <h3>Modal Title</h3>
+        <p>Native <code>&lt;dialog&gt;</code>, opened via <code>data-open-dialog</code> and closed via backdrop click, Escape, or <code>data-close-dialog</code>.</p>
+        <div class="cluster" style="--cluster-justify: flex-end;">
+          <button class="button" data-close-dialog>Cancel</button>
+          <button class="button" data-variant="primary" data-close-dialog>Confirm</button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="offcanvas" id="demo-drawer">
+      <div class="wrapper flow">
+        <div class="cluster" style="--cluster-justify: space-between;">
+          <h3>Navigation</h3>
+          <button class="button" data-close-dialog>Close</button>
+        </div>
+        <nav class="flow">
+          <a href="#tokens">Tokens</a>
+          <a href="#compositions">Compositions</a>
+          <a href="#blocks">Blocks</a>
+          <a href="#utilities">Utilities</a>
+        </nav>
+      </div>
+    </dialog>
+
+    <script src="../src/scripts/behaviors.js" defer></script>
+  </body>
+</html>

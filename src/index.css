@@ -15,13 +15,14 @@
 /* --------------------------------------------------------------------------
    LAYER 2: LAYOUT COMPOSITIONS (Aesthetics-Agnostic Structural Rules)
    -------------------------------------------------------------------------- */
+@import "02-compositions/wrapper.css" layer(compositions);
+@import "02-compositions/center.css" layer(compositions);
 @import "02-compositions/flow.css" layer(compositions);
 @import "02-compositions/cluster.css" layer(compositions);
 @import "02-compositions/sidebar.css" layer(compositions);
 @import "02-compositions/grid.css" layer(compositions);
 @import "02-compositions/reel.css" layer(compositions);
 @import "02-compositions/switcher.css" layer(compositions);
-@import "02-compositions/center.css" layer(compositions);
 
 /* --------------------------------------------------------------------------
    LAYER 3: CUBE BLOCKS (Encapsulated Component Styling)

@@ -4,29 +4,23 @@
 
 /* --- Text Colors --- */
 .text-primary {
-  color: var(--color-action-primary);
+  color: var(--colors-action-primary);
 }
 .text-muted {
-  color: var(--color-text-muted);
+  color: var(--colors-text-muted);
 }
 .text-danger {
-  color: #dc2626;
-} /* Standard semantic override */
-
-@media (prefers-color-scheme: dark) {
-  .text-danger {
-    color: #f87171;
-  }
+  color: var(--colors-danger);
 }
 
 /* --- Surface Colors --- */
 .bg-surface-base {
-  background-color: var(--color-surface-base);
+  background-color: var(--colors-surface-base);
 }
 .bg-surface-sunken {
-  background-color: var(--color-surface-sunken);
+  background-color: var(--colors-surface-sunken);
 }
 .bg-primary {
-  background-color: var(--color-action-primary);
-  color: var(--color-surface-base);
+  background-color: var(--colors-action-primary);
+  color: var(--colors-text-on-action);
 }

@@ -10,14 +10,14 @@
   width: 100%;
   max-inline-size: 24rem;
   border: none;
-  background-color: var(--color-surface-base);
-  padding: var(--space-l);
+  background-color: var(--colors-surface-base);
+  padding: var(--spacing-lg);
   box-shadow: -10px 0 25px rgba(0, 0, 0, 0.1);
-  color: var(--color-text-base);
+  color: var(--colors-text-base);
 
   /* Animation defaults */
   transform: translateX(100%);
-  transition: transform var(--dur-base) var(--spring-smooth);
+  transition: transform var(--transitions-dur-base) var(--transitions-spring-smooth);
 }
 
 /* The native [open] attribute triggers the transformation */
