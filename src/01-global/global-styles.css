@@ -5,7 +5,7 @@
 html,
 body {
   min-height: 100%; /* Better support than min-inline-size */
-  font-family: system-ui, sans-serif;
+  font-family: var(--fonts-body);
   line-height: 1.5;
   color: var(--colors-text-base);
   background-color: var(--colors-surface-base);
@@ -30,6 +30,7 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: var(--fonts-heading);
   max-width: var(--layout-measure);
   line-height: 1.2; /* Tighter line height for headings */
   text-wrap: balance; /* Modern CSS to prevent awkward single-word widows */

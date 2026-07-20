@@ -70,5 +70,10 @@
   "layout": {
     "measure": "60ch",
     "wrapper-max-width": "80rem"
+  },
+  "_comment_fonts": "PROCESS: two typographic roles - heading and body - each a full font-family stack with a system-ui fallback. These are brand-neutral placeholders; override them per-project rather than editing here, so this file stays reusable across projects.",
+  "fonts": {
+    "heading": "system-ui, sans-serif",
+    "body": "system-ui, sans-serif"
   }
 }

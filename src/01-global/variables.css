@@ -68,4 +68,8 @@
   /* --- LAYOUT --- */
   --layout-measure: 60ch;
   --layout-wrapper-max-width: 80rem;
+
+  /* --- FONTS --- */
+  --fonts-heading: system-ui, sans-serif;
+  --fonts-body: system-ui, sans-serif;
 }
